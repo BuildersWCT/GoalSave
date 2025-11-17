@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+artifacts/
+cache/
+node_modules/
+.env
+deployment-info.json
