@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 
-const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055'
+const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
 interface GoalFormProps {
   onGoalCreated: () => void
 }
 
 export function GoalForm({ onGoalCreated }: GoalFormProps) {
+  const { t } = useTranslation()
   const [name, setName] = useState('')
   const [token, setToken] = useState('0x0000000000000000000000000000000000000000') // CELO
   const [target, setTarget] = useState('')
@@ -28,7 +30,7 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
       address: CONTRACT_ADDRESS,
       abi: CeloSaveABI,
       functionName: 'createGoal',
-      args: [name, token, BigInt(target), BigInt(lockUntil || '0')],
+      args: [name, token as `0x${string}`, BigInt(target), BigInt(lockUntil || '0')],
     })
   }
 
@@ -44,36 +46,36 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
 
   return (
     <div className="goal-form">
-      <h3>Create New Goal</h3>
+      <h3>{t('createGoal')}</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Goal name"
+          placeholder={t('goalNamePlaceholder')}
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
         <input
           type="text"
-          placeholder="Token address (0x0 for CELO)"
+          placeholder={t('tokenAddressPlaceholder')}
           value={token}
           onChange={(e) => setToken(e.target.value)}
         />
         <input
           type="number"
-          placeholder="Target amount"
+          placeholder={t('targetAmountPlaceholder')}
           value={target}
           onChange={(e) => setTarget(e.target.value)}
           required
         />
         <input
           type="number"
-          placeholder="Lock until timestamp (0 for no lock)"
+          placeholder={t('lockUntilPlaceholder')}
           value={lockUntil}
           onChange={(e) => setLockUntil(e.target.value)}
         />
         <button type="submit" disabled={isPending || isConfirming}>
-          {isPending ? 'Creating...' : isConfirming ? 'Confirming...' : 'Create Goal'}
+          {isPending ? t('creating') : isConfirming ? t('waiting') : t('createButton')}
         </button>
       </form>
     </div>
