@@ -14,10 +14,5 @@
       "module": "commonjs"
     }
   },
-  "files": ["./hardhat.config.ts"],
-  "include": ["./scripts", "./test", "./contracts"],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["./scripts", "./test", "./contracts"]
 }
