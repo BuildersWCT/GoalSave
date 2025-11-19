@@ -1,0 +1,33 @@
+.language-switcher {
+  display: flex;
+  align-items: center;
+}
+
+.language-select {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.language-select:hover {
+  border-color: var(--accent-color);
+  background: var(--button-hover-bg);
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
+}
+
+.language-select option {
+  background: var(--button-bg);
+  color: var(--text-color);
+  padding: 0.5rem;
+}
