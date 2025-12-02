@@ -1,0 +1,79 @@
+name: Create Issues from Config
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/ISSUES.yml'
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install js-yaml
+
+      - name: Create issues from config
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const yaml = require('js-yaml');
+            
+            // Read the issues config file
+            const configPath = '.github/ISSUES.yml';
+            if (!fs.existsSync(configPath)) {
+              console.log('No ISSUES.yml found');
+              return;
+            }
+            
+            const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
+            
+            if (!config.issues || !Array.isArray(config.issues)) {
+              console.log('No issues defined in config');
+              return;
+            }
+            
+            // Get existing issues to avoid duplicates
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              per_page: 100
+            });
+            
+            const existingTitles = existingIssues.data.map(issue => issue.title);
+            
+            for (const issue of config.issues) {
+              // Skip if issue already exists
+              if (existingTitles.includes(issue.title)) {
+                console.log(`Issue already exists: ${issue.title}`);
+                continue;
+              }
+              
+              try {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: issue.title,
+                  body: issue.body,
+                  labels: issue.labels || []
+                });
+                console.log(`Created issue: ${issue.title}`);
+              } catch (error) {
+                console.error(`Failed to create issue: ${issue.title}`, error.message);
+              }
+            }

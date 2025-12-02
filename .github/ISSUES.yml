@@ -1,0 +1,92 @@
+# GitHub Issues Configuration
+# These issues will be created automatically when pushed to GitHub
+
+issues:
+  - title: "Add unit tests for smart contract"
+    body: |
+      ## Description
+      Add comprehensive unit tests for the CeloSave smart contract.
+      
+      ## Tasks
+      - [ ] Test goal creation functionality
+      - [ ] Test deposit functionality
+      - [ ] Test withdrawal functionality
+      - [ ] Test edge cases and error handling
+      
+      ## Labels
+      - enhancement
+      - good first issue
+    labels:
+      - enhancement
+      - good first issue
+
+  - title: "Improve mobile responsiveness"
+    body: |
+      ## Description
+      Enhance the mobile user experience by improving responsive design.
+      
+      ## Tasks
+      - [ ] Review current mobile layout
+      - [ ] Fix any overflow issues
+      - [ ] Optimize touch interactions
+      - [ ] Test on various screen sizes
+      
+      ## Labels
+      - enhancement
+      - UI/UX
+    labels:
+      - enhancement
+      - UI/UX
+
+  - title: "Add more language translations"
+    body: |
+      ## Description
+      Expand internationalization support by adding more language translations.
+      
+      ## Tasks
+      - [ ] Identify target languages
+      - [ ] Create translation files
+      - [ ] Test language switching
+      
+      ## Labels
+      - enhancement
+      - i18n
+      - good first issue
+    labels:
+      - enhancement
+      - i18n
+      - good first issue
+
+  - title: "Implement goal progress visualization"
+    body: |
+      ## Description
+      Add visual progress indicators for savings goals.
+      
+      ## Tasks
+      - [ ] Design progress bar component
+      - [ ] Implement percentage calculation
+      - [ ] Add animations for progress updates
+      
+      ## Labels
+      - enhancement
+      - UI/UX
+    labels:
+      - enhancement
+      - UI/UX
+
+  - title: "Add notification system"
+    body: |
+      ## Description
+      Implement notifications for goal milestones and reminders.
+      
+      ## Tasks
+      - [ ] Design notification component
+      - [ ] Implement milestone detection
+      - [ ] Add browser notification support
+      
+      ## Labels
+      - enhancement
+      - feature
+    labels:
+      - enhancement
+      - feature
