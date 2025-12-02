@@ -12,10 +12,6 @@ issues:
       - [ ] Test deposit functionality
       - [ ] Test withdrawal functionality
       - [ ] Test edge cases and error handling
-      
-      ## Labels
-      - enhancement
-      - good first issue
     labels:
       - enhancement
       - good first issue
@@ -30,10 +26,6 @@ issues:
       - [ ] Fix any overflow issues
       - [ ] Optimize touch interactions
       - [ ] Test on various screen sizes
-      
-      ## Labels
-      - enhancement
-      - UI/UX
     labels:
       - enhancement
       - UI/UX
@@ -47,11 +39,6 @@ issues:
       - [ ] Identify target languages
       - [ ] Create translation files
       - [ ] Test language switching
-      
-      ## Labels
-      - enhancement
-      - i18n
-      - good first issue
     labels:
       - enhancement
       - i18n
@@ -66,10 +53,6 @@ issues:
       - [ ] Design progress bar component
       - [ ] Implement percentage calculation
       - [ ] Add animations for progress updates
-      
-      ## Labels
-      - enhancement
-      - UI/UX
     labels:
       - enhancement
       - UI/UX
@@ -83,10 +66,302 @@ issues:
       - [ ] Design notification component
       - [ ] Implement milestone detection
       - [ ] Add browser notification support
-      
-      ## Labels
-      - enhancement
-      - feature
     labels:
       - enhancement
       - feature
+
+  - title: "Add dark mode improvements"
+    body: |
+      ## Description
+      Enhance the dark mode theme with better contrast and colors.
+      
+      ## Tasks
+      - [ ] Review current dark mode colors
+      - [ ] Improve contrast ratios for accessibility
+      - [ ] Add smooth transition animations
+      - [ ] Test across all components
+    labels:
+      - enhancement
+      - UI/UX
+      - good first issue
+
+  - title: "Implement goal categories"
+    body: |
+      ## Description
+      Allow users to categorize their savings goals (e.g., Emergency, Vacation, Education).
+      
+      ## Tasks
+      - [ ] Design category selection UI
+      - [ ] Add category icons
+      - [ ] Implement filtering by category
+      - [ ] Update smart contract if needed
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Add goal sharing functionality"
+    body: |
+      ## Description
+      Enable users to share their goals on social media or with friends.
+      
+      ## Tasks
+      - [ ] Create shareable goal cards
+      - [ ] Add social media share buttons
+      - [ ] Generate shareable links
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Implement recurring deposits"
+    body: |
+      ## Description
+      Allow users to set up automatic recurring deposits to their goals.
+      
+      ## Tasks
+      - [ ] Design recurring deposit UI
+      - [ ] Implement scheduling logic
+      - [ ] Add reminder notifications
+      - [ ] Handle failed transactions
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Add goal templates"
+    body: |
+      ## Description
+      Provide pre-made goal templates for common savings objectives.
+      
+      ## Tasks
+      - [ ] Create template designs
+      - [ ] Add template selection screen
+      - [ ] Implement template customization
+    labels:
+      - enhancement
+      - good first issue
+
+  - title: "Improve wallet connection UX"
+    body: |
+      ## Description
+      Make the wallet connection process smoother and more intuitive.
+      
+      ## Tasks
+      - [ ] Add wallet detection
+      - [ ] Show connection status clearly
+      - [ ] Handle connection errors gracefully
+      - [ ] Add wallet switching support
+    labels:
+      - enhancement
+      - UI/UX
+
+  - title: "Add transaction history"
+    body: |
+      ## Description
+      Display a history of all deposits and withdrawals for each goal.
+      
+      ## Tasks
+      - [ ] Design transaction list UI
+      - [ ] Fetch transaction data from blockchain
+      - [ ] Add filtering and sorting options
+      - [ ] Show transaction details on click
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Implement goal deadline reminders"
+    body: |
+      ## Description
+      Send reminders when goal deadlines are approaching.
+      
+      ## Tasks
+      - [ ] Calculate days until deadline
+      - [ ] Show countdown on goal cards
+      - [ ] Send push notifications
+      - [ ] Add email reminder option
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Add export functionality"
+    body: |
+      ## Description
+      Allow users to export their goals and transaction data.
+      
+      ## Tasks
+      - [ ] Implement CSV export
+      - [ ] Add PDF report generation
+      - [ ] Include charts in exports
+    labels:
+      - enhancement
+      - good first issue
+
+  - title: "Improve error handling and messages"
+    body: |
+      ## Description
+      Provide clearer error messages and better error recovery options.
+      
+      ## Tasks
+      - [ ] Audit current error handling
+      - [ ] Create user-friendly error messages
+      - [ ] Add retry mechanisms
+      - [ ] Log errors for debugging
+    labels:
+      - enhancement
+      - bug
+
+  - title: "Add loading skeletons"
+    body: |
+      ## Description
+      Replace loading spinners with skeleton screens for better UX.
+      
+      ## Tasks
+      - [ ] Design skeleton components
+      - [ ] Implement for goal list
+      - [ ] Implement for goal details
+      - [ ] Add smooth transitions
+    labels:
+      - enhancement
+      - UI/UX
+      - good first issue
+
+  - title: "Implement goal milestones"
+    body: |
+      ## Description
+      Add milestone markers (25%, 50%, 75%, 100%) with celebrations.
+      
+      ## Tasks
+      - [ ] Design milestone indicators
+      - [ ] Add celebration animations
+      - [ ] Track milestone achievements
+      - [ ] Show milestone history
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Add keyboard shortcuts"
+    body: |
+      ## Description
+      Implement keyboard shortcuts for power users.
+      
+      ## Tasks
+      - [ ] Define shortcut mappings
+      - [ ] Implement shortcut handler
+      - [ ] Add shortcuts help modal
+      - [ ] Make shortcuts customizable
+    labels:
+      - enhancement
+      - good first issue
+
+  - title: "Improve accessibility (a11y)"
+    body: |
+      ## Description
+      Ensure the app is fully accessible to users with disabilities.
+      
+      ## Tasks
+      - [ ] Add proper ARIA labels
+      - [ ] Ensure keyboard navigation works
+      - [ ] Test with screen readers
+      - [ ] Fix color contrast issues
+      - [ ] Add focus indicators
+    labels:
+      - enhancement
+      - accessibility
+      - good first issue
+
+  - title: "Add onboarding tutorial"
+    body: |
+      ## Description
+      Create an interactive tutorial for new users.
+      
+      ## Tasks
+      - [ ] Design tutorial flow
+      - [ ] Create step-by-step guide
+      - [ ] Add skip option
+      - [ ] Track tutorial completion
+    labels:
+      - enhancement
+      - documentation
+
+  - title: "Implement goal collaboration"
+    body: |
+      ## Description
+      Allow multiple users to contribute to a shared goal.
+      
+      ## Tasks
+      - [ ] Design collaboration UI
+      - [ ] Implement invite system
+      - [ ] Track individual contributions
+      - [ ] Add contributor leaderboard
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Add savings tips and insights"
+    body: |
+      ## Description
+      Provide personalized savings tips based on user behavior.
+      
+      ## Tasks
+      - [ ] Analyze saving patterns
+      - [ ] Create tip content
+      - [ ] Design tips display
+      - [ ] Add dismiss/save functionality
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Implement goal archiving"
+    body: |
+      ## Description
+      Allow users to archive completed or abandoned goals.
+      
+      ## Tasks
+      - [ ] Add archive button
+      - [ ] Create archived goals view
+      - [ ] Implement restore functionality
+      - [ ] Update smart contract if needed
+    labels:
+      - enhancement
+      - feature
+      - good first issue
+
+  - title: "Add currency conversion display"
+    body: |
+      ## Description
+      Show goal amounts in multiple currencies for reference.
+      
+      ## Tasks
+      - [ ] Integrate exchange rate API
+      - [ ] Add currency selector
+      - [ ] Display converted amounts
+      - [ ] Cache exchange rates
+    labels:
+      - enhancement
+      - feature
+
+  - title: "Improve form validation"
+    body: |
+      ## Description
+      Add better real-time validation for all input forms.
+      
+      ## Tasks
+      - [ ] Add inline validation messages
+      - [ ] Validate on blur and submit
+      - [ ] Show validation status icons
+      - [ ] Prevent invalid submissions
+    labels:
+      - enhancement
+      - UI/UX
+      - good first issue
+
+  - title: "Add goal duplication feature"
+    body: |
+      ## Description
+      Allow users to duplicate existing goals as templates.
+      
+      ## Tasks
+      - [ ] Add duplicate button
+      - [ ] Copy goal settings
+      - [ ] Allow editing before save
+    labels:
+      - enhancement
+      - good first issue
