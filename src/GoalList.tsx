@@ -78,6 +78,7 @@ export function GoalList() {
             className={!showArchived ? 'active' : ''}
             onClick={() => setShowArchived(false)}
             disabled={activeGoals.length === 0}
+            aria-label={`View active goals (${activeGoals.length} total)`}
           >
             Active ({activeGoals.length})
           </button>
@@ -85,6 +86,7 @@ export function GoalList() {
             className={showArchived ? 'active' : ''}
             onClick={() => setShowArchived(true)}
             disabled={archivedGoals.length === 0}
+            aria-label={`View archived goals (${archivedGoals.length} total)`}
           >
             Archived ({archivedGoals.length})
           </button>
@@ -102,7 +104,7 @@ export function GoalList() {
               <p>{t('balance')}: {goal.balance.toString()}</p>
               <p>{t('token')}: {goal.token === '0x0000000000000000000000000000000000000000' ? 'CELO' : goal.token}</p>
               <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
-              {goal.archived && <p>{t('archived')}: Yes</p>}
+              {goal.archived && <p><strong>{t('archived')}</strong>: Yes</p>}
             </div>
             <div className="goal-actions">
               {!goal.archived && (
@@ -110,6 +112,8 @@ export function GoalList() {
                   onClick={() => handleArchiveGoal(goal.id)}
                   disabled={isPending || isConfirming || refreshing}
                   className="btn-archive"
+                  aria-label={`Archive goal: ${goal.name}`}
+                  title={`Archive goal: ${goal.name}`}
                 >
                   {isPending || isConfirming || refreshing ? t('archiving') : t('archive')}
                 </button>
@@ -119,6 +123,8 @@ export function GoalList() {
                   onClick={() => handleRestoreGoal(goal.id)}
                   disabled={isPending || isConfirming || refreshing}
                   className="btn-restore"
+                  aria-label={`Restore goal: ${goal.name}`}
+                  title={`Restore goal: ${goal.name}`}
                 >
                   {isPending || isConfirming || refreshing ? t('restoring') : t('restore')}
                 </button>
