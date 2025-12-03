@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useReadContract } from 'wagmi'
+import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
@@ -13,31 +14,116 @@ interface Goal {
   createdAt: bigint
   lockUntil: bigint
   closed: boolean
+  archived: boolean
 }
 
 export function GoalList() {
   const { t } = useTranslation()
+  const [showArchived, setShowArchived] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
+  
   const { data: goals, isLoading } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: CeloSaveABI,
     functionName: 'getMyGoals',
   }) as { data: Goal[] | undefined; isLoading: boolean }
 
+  const { writeContract, data: hash, isPending } = useWriteContract()
+
+  const { isLoading: isConfirming } = useWaitForTransactionReceipt({
+    hash,
+  })
+
+  const handleArchiveGoal = async (goalId: bigint) => {
+    setRefreshing(true)
+    writeContract({
+      address: CONTRACT_ADDRESS,
+      abi: CeloSaveABI,
+      functionName: 'archiveGoal',
+      args: [goalId],
+    })
+  }
+
+  const handleRestoreGoal = async (goalId: bigint) => {
+    setRefreshing(true)
+    writeContract({
+      address: CONTRACT_ADDRESS,
+      abi: CeloSaveABI,
+      functionName: 'restoreGoal',
+      args: [goalId],
+    })
+  }
+
+  // Refresh goals after transaction
+  useEffect(() => {
+    if (hash && !isConfirming) {
+      setRefreshing(false)
+    }
+  }, [hash, isConfirming])
+
+  // Filter goals based on showArchived state
+  const filteredGoals = goals?.filter(goal => showArchived ? goal.archived : !goal.archived) || []
+
   if (isLoading) return <div className="goal-list"><p>{t('loading')}</p></div>
+
+  const activeGoals = goals?.filter(goal => !goal.archived) || []
+  const archivedGoals = goals?.filter(goal => goal.archived) || []
 
   return (
     <div className="goal-list">
-      <h3>{t('yourGoals')}</h3>
-      {!goals || goals.length === 0 ? (
-        <p>{t('noGoals')}</p>
+      <div className="goal-list-header">
+        <h3>{t('yourGoals')}</h3>
+        <div className="goal-view-toggle">
+          <button 
+            className={!showArchived ? 'active' : ''}
+            onClick={() => setShowArchived(false)}
+            disabled={activeGoals.length === 0}
+          >
+            Active ({activeGoals.length})
+          </button>
+          <button 
+            className={showArchived ? 'active' : ''}
+            onClick={() => setShowArchived(true)}
+            disabled={archivedGoals.length === 0}
+          >
+            Archived ({archivedGoals.length})
+          </button>
+        </div>
+      </div>
+
+      {!filteredGoals || filteredGoals.length === 0 ? (
+        <p>{showArchived ? t('noArchivedGoals') : t('noActiveGoals')}</p>
       ) : (
-        goals.map((goal) => (
-          <div key={goal.id.toString()} className="goal-item">
+        filteredGoals.map((goal) => (
+          <div key={goal.id.toString()} className={`goal-item ${goal.archived ? 'goal-item--archived' : ''}`}>
             <h4>{goal.name}</h4>
-            <p>{t('target')}: {goal.target.toString()}</p>
-            <p>{t('balance')}: {goal.balance.toString()}</p>
-            <p>{t('token')}: {goal.token === '0x0000000000000000000000000000000000000000' ? 'CELO' : goal.token}</p>
-            <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
+            <div className="goal-details">
+              <p>{t('target')}: {goal.target.toString()}</p>
+              <p>{t('balance')}: {goal.balance.toString()}</p>
+              <p>{t('token')}: {goal.token === '0x0000000000000000000000000000000000000000' ? 'CELO' : goal.token}</p>
+              <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
+              {goal.archived && <p>{t('archived')}: Yes</p>}
+            </div>
+            <div className="goal-actions">
+              {!goal.archived && (
+                <button
+                  onClick={() => handleArchiveGoal(goal.id)}
+                  disabled={isPending || isConfirming || refreshing}
+                  className="btn-archive"
+                >
+                  {isPending || isConfirming || refreshing ? t('archiving') : t('archive')}
+                </button>
+              )}
+              {goal.archived && (
+                <button
+                  onClick={() => handleRestoreGoal(goal.id)}
+                  disabled={isPending || isConfirming || refreshing}
+                  className="btn-restore"
+                >
+                  {isPending || isConfirming || refreshing ? t('restoring') : t('restore')}
+                </button>
+              )}
+            </div>
           </div>
         ))
       )}
