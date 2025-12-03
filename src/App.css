@@ -192,11 +192,16 @@ main {
   opacity: 0.7;
   background: var(--button-bg);
   border-style: dashed;
+  border-color: var(--border-color);
 }
 
-.goal-item--archived .goal-item h4 {
+.goal-item--archived h4 {
   text-decoration: line-through;
   opacity: 0.6;
+}
+
+.goal-item--archived .goal-details {
+  opacity: 0.8;
 }
 
 footer {
