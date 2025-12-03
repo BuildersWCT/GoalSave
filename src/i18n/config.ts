@@ -60,7 +60,25 @@ const resources = {
       english: 'English',
       spanish: 'Spanish',
       french: 'French',
-      german: 'German'
+      german: 'German',
+
+      // Export functionality
+      exportGoals: 'Export Goals',
+      exportToCSV: 'Export CSV',
+      exportToPDF: 'Export PDF',
+      exporting: 'Exporting...',
+      exportFailed: 'Export failed. Please try again.',
+      noGoalsToExport: 'No goals to export',
+      includeArchivedGoals: 'Include archived goals',
+      includeChartsInExport: 'Include charts in export',
+      showOptions: 'Show export options',
+      hideOptions: 'Hide export options',
+      totalGoals: 'Total Goals',
+      activeGoals: 'Active Goals',
+      closedGoals: 'Closed Goals',
+      avgProgress: 'Avg Progress',
+      goalProgressChart: 'Goal Progress Chart',
+      goalProgressOverview: 'Goal Progress Overview'
     }
   },
   es: {
@@ -119,7 +137,25 @@ const resources = {
       english: 'Inglés',
       spanish: 'Español',
       french: 'Francés',
-      german: 'Alemán'
+      german: 'Alemán',
+
+      // Export functionality
+      exportGoals: 'Exportar Objetivos',
+      exportToCSV: 'Exportar CSV',
+      exportToPDF: 'Exportar PDF',
+      exporting: 'Exportando...',
+      exportFailed: 'Error en la exportación. Inténtalo de nuevo.',
+      noGoalsToExport: 'No hay objetivos para exportar',
+      includeArchivedGoals: 'Incluir objetivos archivados',
+      includeChartsInExport: 'Incluir gráficos en la exportación',
+      showOptions: 'Mostrar opciones de exportación',
+      hideOptions: 'Ocultar opciones de exportación',
+      totalGoals: 'Total de Objetivos',
+      activeGoals: 'Objetivos Activos',
+      closedGoals: 'Objetivos Cerrados',
+      avgProgress: 'Progreso Promedio',
+      goalProgressChart: 'Gráfico de Progreso de Objetivos',
+      goalProgressOverview: 'Resumen del Progreso de Objetivos'
     }
   },
   fr: {
@@ -178,7 +214,25 @@ const resources = {
       english: 'Anglais',
       spanish: 'Espagnol',
       french: 'Français',
-      german: 'Allemand'
+      german: 'Allemand',
+
+      // Export functionality
+      exportGoals: 'Exporter les Objectifs',
+      exportToCSV: 'Exporter CSV',
+      exportToPDF: 'Exporter PDF',
+      exporting: 'Exportation...',
+      exportFailed: 'L\'exportation a échoué. Veuillez réessayer.',
+      noGoalsToExport: 'Aucun objectif à exporter',
+      includeArchivedGoals: 'Inclure les objectifs archivés',
+      includeChartsInExport: 'Inclure les graphiques dans l\'exportation',
+      showOptions: 'Afficher les options d\'exportation',
+      hideOptions: 'Masquer les options d\'exportation',
+      totalGoals: 'Total des Objectifs',
+      activeGoals: 'Objectifs Actifs',
+      closedGoals: 'Objectifs Fermés',
+      avgProgress: 'Progrès Moyen',
+      goalProgressChart: 'Graphique de Progrès des Objectifs',
+      goalProgressOverview: 'Aperçu du Progrès des Objectifs'
     }
   },
   de: {
@@ -237,7 +291,25 @@ const resources = {
       english: 'Englisch',
       spanish: 'Spanisch',
       french: 'Französisch',
-      german: 'Deutsch'
+      german: 'Deutsch',
+
+      // Export functionality
+      exportGoals: 'Ziele Exportieren',
+      exportToCSV: 'CSV Exportieren',
+      exportToPDF: 'PDF Exportieren',
+      exporting: 'Exportiere...',
+      exportFailed: 'Export fehlgeschlagen. Bitte versuchen Sie es erneut.',
+      noGoalsToExport: 'Keine Ziele zum Exportieren',
+      includeArchivedGoals: 'Archivierte Ziele einschließen',
+      includeChartsInExport: 'Diagramme in Export einschließen',
+      showOptions: 'Export-Optionen anzeigen',
+      hideOptions: 'Export-Optionen ausblenden',
+      totalGoals: 'Gesamte Ziele',
+      activeGoals: 'Aktive Ziele',
+      closedGoals: 'Geschlossene Ziele',
+      avgProgress: 'Durchschn. Fortschritt',
+      goalProgressChart: 'Ziel-Fortschrittsdiagramm',
+      goalProgressOverview: 'Ziel-Fortschrittsübersicht'
     }
   }
 }

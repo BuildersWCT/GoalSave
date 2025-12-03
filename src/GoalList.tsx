@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
+import { ExportControls } from './components/ExportControls'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -71,6 +72,11 @@ export function GoalList() {
 
   return (
     <div className="goal-list">
+      {/* Export Controls */}
+      {goals && goals.length > 0 && (
+        <ExportControls goals={goals} />
+      )}
+
       <div className="goal-list-header">
         <h3>{t('yourGoals')}</h3>
         <div className="goal-view-toggle">
