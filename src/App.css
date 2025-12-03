@@ -106,6 +106,99 @@ main {
   opacity: 0.8;
 }
 
+/* Archive functionality styles */
+.goal-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.goal-view-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.goal-view-toggle button {
+  background: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.goal-view-toggle button:hover:not(:disabled) {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.goal-view-toggle button.active {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.goal-view-toggle button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.goal-details {
+  margin-bottom: 1rem;
+}
+
+.goal-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-archive,
+.btn-restore {
+  background: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.btn-archive:hover:not(:disabled) {
+  background: #e53e3e;
+  color: white;
+  border-color: #e53e3e;
+}
+
+.btn-restore:hover:not(:disabled) {
+  background: #38a169;
+  color: white;
+  border-color: #38a169;
+}
+
+.btn-archive:disabled,
+.btn-restore:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.goal-item--archived {
+  opacity: 0.7;
+  background: var(--button-bg);
+  border-style: dashed;
+}
+
+.goal-item--archived .goal-item h4 {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
 footer {
   text-align: center;
   color: var(--text-color);
