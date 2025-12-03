@@ -1,6 +1,3 @@
-import jsPDF from 'jspdf';
-import Papa from 'papaparse';
-
 export interface Goal {
   id: bigint;
   name: string;
@@ -47,7 +44,7 @@ export class ExportService {
       LockUntil: goal.lockUntil > 0n ? this.formatDate(goal.lockUntil) : 'No Lock'
     }));
 
-    const csv = Papa.unparse(csvData);
+    const csv = this.convertToCSV(csvData);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
@@ -57,117 +54,148 @@ export class ExportService {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   /**
-   * Export goals to PDF report
+   * Export goals to PDF report (simplified HTML version)
    */
   static exportToPDF(goals: Goal[], options: ExportOptions = { includeCharts: true, includeArchived: true }): void {
-    const doc = new jsPDF();
     const filteredGoals = options.includeArchived ? goals : goals.filter(goal => !goal.archived);
-
-    // Header
-    doc.setFontSize(20);
-    doc.text('GoalSave Report', 20, 20);
     
-    doc.setFontSize(12);
-    doc.text(`Generated on: ${new Date().toLocaleString()}`, 20, 35);
-    doc.text(`Total Goals: ${filteredGoals.length}`, 20, 45);
+    // Create HTML content for PDF
+    let htmlContent = `
+      <html>
+        <head>
+          <title>GoalSave Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #333; border-bottom: 2px solid #333; }
+            h2 { color: #666; margin-top: 20px; }
+            table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+            .progress-bar { background-color: #e0e0e0; height: 20px; border-radius: 10px; }
+            .progress-fill { height: 100%; border-radius: 10px; }
+            .progress-low { background-color: #ef4444; }
+            .progress-medium { background-color: #3b82f6; }
+            .progress-high { background-color: #22c55e; }
+            .stats { display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0; }
+            .stat-item { background: #f9f9f9; padding: 10px; border-radius: 5px; }
+          </style>
+        </head>
+        <body>
+          <h1>GoalSave Report</h1>
+          <p><strong>Generated on:</strong> ${new Date().toLocaleString()}</p>
+          <p><strong>Total Goals:</strong> ${filteredGoals.length}</p>
+    `;
 
-    let yPosition = 60;
+    // Add summary statistics
+    const stats = this.getExportStats(goals, options);
+    htmlContent += `
+          <h2>Summary</h2>
+          <div class="stats">
+            <div class="stat-item"><strong>Active Goals:</strong> ${stats.activeGoals}</div>
+            <div class="stat-item"><strong>Closed Goals:</strong> ${stats.closedGoals}</div>
+            <div class="stat-item"><strong>Archived Goals:</strong> ${stats.archivedGoals}</div>
+            <div class="stat-item"><strong>Average Progress:</strong> ${stats.avgProgress}%</div>
+          </div>
+    `;
 
-    // Summary statistics
-    const activeGoals = filteredGoals.filter(g => !g.archived && !g.closed);
-    const closedGoals = filteredGoals.filter(g => g.closed);
-    const archivedGoals = filteredGoals.filter(g => g.archived);
-    
-    doc.setFontSize(14);
-    doc.text('Summary', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(10);
-    doc.text(`Active Goals: ${activeGoals.length}`, 20, yPosition);
-    yPosition += 5;
-    doc.text(`Closed Goals: ${closedGoals.length}`, 20, yPosition);
-    yPosition += 5;
-    doc.text(`Archived Goals: ${archivedGoals.length}`, 20, yPosition);
-    yPosition += 15;
+    // Add goals table
+    htmlContent += `
+          <h2>Goals Details</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Target</th>
+                <th>Balance</th>
+                <th>Progress</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+    `;
 
-    // Goals table
-    if (filteredGoals.length > 0) {
-      doc.setFontSize(14);
-      doc.text('Goals Details', 20, yPosition);
-      yPosition += 10;
-
-      // Table headers
-      doc.setFontSize(8);
-      const headers = ['Name', 'Target', 'Balance', 'Progress', 'Status'];
-      let xPosition = 20;
+    filteredGoals.forEach(goal => {
+      const progress = this.calculateProgress(goal);
+      const progressColor = progress >= 100 ? 'progress-high' : progress >= 50 ? 'progress-medium' : 'progress-low';
       
-      headers.forEach(header => {
-        doc.text(header, xPosition, yPosition);
-        xPosition += 35;
-      });
-      yPosition += 5;
+      htmlContent += `
+        <tr>
+          <td>${goal.name}</td>
+          <td>${goal.target.toString()}</td>
+          <td>${goal.balance.toString()}</td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress-fill ${progressColor}" style="width: ${Math.min(progress, 100)}%"></div>
+            </div>
+            ${progress.toFixed(1)}%
+          </td>
+          <td>${goal.closed ? 'Closed' : 'Active'}</td>
+        </tr>
+      `;
+    });
 
-      // Table rows
-      filteredGoals.forEach((goal) => {
-        if (yPosition > 270) { // Add new page if needed
-          doc.addPage();
-          yPosition = 20;
-        }
+    htmlContent += `
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
 
-        xPosition = 20;
-        const progress = this.calculateProgress(goal);
-        const rowData = [
-          goal.name.substring(0, 12), // Truncate long names
-          goal.target.toString().substring(0, 8),
-          goal.balance.toString().substring(0, 8),
-          `${progress.toFixed(1)}%`,
-          goal.closed ? 'Closed' : 'Active'
-        ];
-
-        rowData.forEach(data => {
-          doc.text(data, xPosition, yPosition);
-          xPosition += 35;
-        });
-        yPosition += 5;
-      });
+    // Open in new window for PDF generation
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(htmlContent);
+      printWindow.document.close();
+      
+      // Wait for content to load then trigger print
+      setTimeout(() => {
+        printWindow.print();
+      }, 500);
+    } else {
+      // Fallback: save as HTML file
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `goals-report-${new Date().toISOString().split('T')[0]}.html`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     }
-
-    // Add chart if requested and goals exist
-    if (options.includeCharts && filteredGoals.length > 0) {
-      doc.addPage();
-      doc.setFontSize(14);
-      doc.text('Goal Progress Chart', 20, 20);
-      
-      // Create a simple progress chart representation
-      yPosition = 40;
-      doc.setFontSize(10);
-      
-      filteredGoals.slice(0, 10).forEach((goal) => { // Limit to first 10 for readability
-        const progress = this.calculateProgress(goal);
-        const barWidth = (progress / 100) * 100;
-        
-        // Draw progress bar background
-        doc.rect(20, yPosition, 100, 5);
-        
-        // Draw progress bar
-        doc.setFillColor(0, 123, 255);
-        doc.rect(20, yPosition, barWidth, 5, 'F');
-        
-        // Label
-        doc.text(`${goal.name.substring(0, 15)} (${progress.toFixed(1)}%)`, 125, yPosition + 4);
-        
-        yPosition += 10;
-      });
-    }
-
-    doc.save(`goals-report-${new Date().toISOString().split('T')[0]}.pdf`);
   }
 
   /**
-   * Generate chart data for React-ChartJS-2
+   * Simple CSV conversion without external dependencies
+   */
+  private static convertToCSV(data: Record<string, string | number>[]): string {
+    if (data.length === 0) return '';
+    
+    const headers = Object.keys(data[0]);
+    const csvRows = [headers.join(',')];
+    
+    for (const row of data) {
+      const values = headers.map(header => {
+        const value = row[header];
+        // Escape quotes and wrap in quotes if contains comma or quote
+        if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
+          return `"${value.replace(/"/g, '""')}"`;
+        }
+        return value;
+      });
+      csvRows.push(values.join(','));
+    }
+    
+    return csvRows.join('\n');
+  }
+
+  /**
+   * Generate chart data for React-ChartJS-2 (placeholder for future use)
    */
   static generateProgressChartData(goals: Goal[], options: ExportOptions = { includeCharts: true, includeArchived: true }) {
     const filteredGoals = options.includeArchived ? goals : goals.filter(goal => !goal.archived);

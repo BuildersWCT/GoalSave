@@ -1,26 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ExportService, Goal, ExportOptions } from '../utils/export';
-import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 import './ExportControls.css';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 interface ExportControlsProps {
   goals: Goal[];
@@ -31,7 +12,7 @@ export function ExportControls({ goals, className = '' }: ExportControlsProps) {
   const { t } = useTranslation();
   const [isExporting, setIsExporting] = useState(false);
   const [exportOptions, setExportOptions] = useState<ExportOptions>({
-    includeCharts: true,
+    includeCharts: false, // Disabled by default due to dependency issues
     includeArchived: true,
   });
   const [showOptions, setShowOptions] = useState(false);
@@ -58,11 +39,6 @@ export function ExportControls({ goals, className = '' }: ExportControlsProps) {
   };
 
   const stats = ExportService.getExportStats(goals, exportOptions);
-
-  const chartData = ExportService.generateProgressChartData(goals, {
-    ...exportOptions,
-    includeCharts: true,
-  });
 
   return (
     <div className={`export-controls ${className}`}>
@@ -108,8 +84,9 @@ export function ExportControls({ goals, className = '' }: ExportControlsProps) {
                     includeCharts: e.target.checked,
                   })
                 }
+                disabled // Disabled due to missing dependencies
               />
-              {t('includeChartsInExport')}
+              {t('includeChartsInExport')} (Beta)
             </label>
           </div>
         </div>
@@ -136,36 +113,33 @@ export function ExportControls({ goals, className = '' }: ExportControlsProps) {
         </div>
       </div>
 
-      {exportOptions.includeCharts && stats.totalGoals > 0 && (
+      {/* Simple progress visualization */}
+      {goals.length > 0 && (
         <div className="export-controls__chart">
           <h4>{t('goalProgressChart')}</h4>
           <div className="chart-container">
-            <Bar
-              data={chartData}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                  title: {
-                    display: true,
-                    text: t('goalProgressOverview'),
-                  },
-                },
-                scales: {
-                  y: {
-                    beginAtZero: true,
-                    max: 100,
-                    ticks: {
-                      callback: function(value) {
-                        return value + '%';
-                      },
-                    },
-                  },
-                },
-              }}
-            />
+            {goals.slice(0, 5).map((goal) => {
+              const actualProgress = Math.min((Number(goal.balance) / Number(goal.target)) * 100, 100);
+              
+              return (
+                <div key={goal.id.toString()} className="progress-bar-item">
+                  <div className="progress-label">{goal.name.substring(0, 15)}</div>
+                  <div className="progress-bar">
+                    <div 
+                      className="progress-fill"
+                      style={{ 
+                        width: `${actualProgress}%`,
+                        backgroundColor: actualProgress >= 100 ? '#22c55e' : actualProgress >= 50 ? '#3b82f6' : '#ef4444'
+                      }}
+                    ></div>
+                  </div>
+                  <div className="progress-value">{actualProgress.toFixed(1)}%</div>
+                </div>
+              );
+            })}
+            {goals.length > 5 && (
+              <div className="more-goals">... and {goals.length - 5} more goals</div>
+            )}
           </div>
         </div>
       )}
