@@ -202,6 +202,7 @@ contract CeloSave is
 
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (goal.token != address(0)) revert InvalidToken();
 
@@ -224,6 +225,7 @@ contract CeloSave is
 
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (goal.token == address(0)) revert InvalidToken();
 
@@ -247,6 +249,7 @@ contract CeloSave is
 
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (block.timestamp < goal.lockUntil) revert GoalStillLocked();
         if (goal.balance < amount) revert InsufficientBalance();
@@ -269,6 +272,7 @@ contract CeloSave is
     {
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (block.timestamp < goal.lockUntil) revert GoalStillLocked();
 
@@ -289,6 +293,7 @@ contract CeloSave is
     function closeGoal(uint256 goalId) external whenNotPaused {
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (block.timestamp < goal.lockUntil) revert GoalStillLocked();
 
