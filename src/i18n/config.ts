@@ -26,11 +26,22 @@ const resources = {
       // Goal List
       yourGoals: 'Your Goals',
       noGoals: 'No goals yet. Create your first goal!',
+      noActiveGoals: 'No active goals.',
+      noArchivedGoals: 'No archived goals.',
       loading: 'Loading goals...',
       target: 'Target',
       balance: 'Balance',
       token: 'Token',
       status: 'Status',
+      archived: 'Archived',
+      
+      // Archive functionality
+      archive: 'Archive',
+      restore: 'Restore',
+      archiving: 'Archiving...',
+      restoring: 'Restoring...',
+      active: 'Active',
+      archivedGoals: 'Archived Goals',
 
       // Footer
       footerText: 'Built with Vite + React + WalletConnect on Celo',
@@ -74,11 +85,22 @@ const resources = {
       // Goal List
       yourGoals: 'Tus Objetivos',
       noGoals: '¡Aún no hay objetivos. Crea tu primer objetivo!',
+      noActiveGoals: 'No hay objetivos activos.',
+      noArchivedGoals: 'No hay objetivos archivados.',
       loading: 'Cargando objetivos...',
       target: 'Objetivo',
       balance: 'Saldo',
       token: 'Token',
       status: 'Estado',
+      archived: 'Archivado',
+      
+      // Archive functionality
+      archive: 'Archivar',
+      restore: 'Restaurar',
+      archiving: 'Archivando...',
+      restoring: 'Restaurando...',
+      active: 'Activos',
+      archivedGoals: 'Objetivos Archivados',
 
       // Footer
       footerText: 'Construido con Vite + React + WalletConnect en Celo',
@@ -122,11 +144,22 @@ const resources = {
       // Goal List
       yourGoals: 'Vos Objectifs',
       noGoals: 'Aucun objectif pour le moment. Créez votre premier objectif!',
+      noActiveGoals: 'Aucun objectif actif.',
+      noArchivedGoals: 'Aucun objectif archivé.',
       loading: 'Chargement des objectifs...',
       target: 'Cible',
       balance: 'Solde',
       token: 'Token',
       status: 'Statut',
+      archived: 'Archivé',
+      
+      // Archive functionality
+      archive: 'Archiver',
+      restore: 'Restaurer',
+      archiving: 'Archivage...',
+      restoring: 'Restauration...',
+      active: 'Actifs',
+      archivedGoals: 'Objectifs Archivés',
 
       // Footer
       footerText: 'Construit avec Vite + React + WalletConnect sur Celo',
@@ -170,11 +203,22 @@ const resources = {
       // Goal List
       yourGoals: 'Ihre Ziele',
       noGoals: 'Noch keine Ziele. Erstellen Sie Ihr erstes Ziel!',
+      noActiveGoals: 'Keine aktiven Ziele.',
+      noArchivedGoals: 'Keine archivierten Ziele.',
       loading: 'Ziele laden...',
       target: 'Ziel',
       balance: 'Guthaben',
       token: 'Token',
       status: 'Status',
+      archived: 'Archiviert',
+      
+      // Archive functionality
+      archive: 'Archivieren',
+      restore: 'Wiederherstellen',
+      archiving: 'Archiviere...',
+      restoring: 'Stelle wieder her...',
+      active: 'Aktiv',
+      archivedGoals: 'Archivierte Ziele',
 
       // Footer
       footerText: 'Erstellt mit Vite + React + WalletConnect auf Celo',
