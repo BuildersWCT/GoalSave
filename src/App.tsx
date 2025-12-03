@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
-import { WagmiConfig } from 'wagmi'
-import { celoAlfajores } from 'viem/chains'
+import { createAppKit } from '@reown/appkit/react'
+import { WagmiProvider } from 'wagmi'
+import { celoAlfajores } from '@reown/appkit/networks'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { ThemeToggle } from './components/ThemeToggle'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
@@ -11,22 +12,35 @@ import { GoalForm } from './GoalForm'
 import { GoalList } from './GoalList'
 import './App.css'
 
-// 1. Get projectId at https://cloud.walletconnect.com
-const projectId = '2f05a7db73b6e7a4c24c7cb5db29e0a6' // Replace with your WalletConnect project ID
+// 1. Get projectId at https://cloud.reown.com
+const projectId = '2f05a7db73b6e7a4c24c7cb5db29e0a6'
 
-// 2. Create wagmiConfig
+// 2. Create wagmi adapter
 const metadata = {
   name: 'GoalSave',
   description: 'Goal-based CELO savings vault',
   url: 'http://localhost:5173',
-  icons: ['https://walletconnect.com/walletconnect-logo.png']
+  icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 
-const chains = [celoAlfajores] as const
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
+const networks = [celoAlfajores]
+
+const wagmiAdapter = new WagmiAdapter({
+  networks,
+  projectId,
+  ssr: false
+})
 
 // 3. Create modal
-createWeb3Modal({ wagmiConfig, projectId })
+createAppKit({
+  adapters: [wagmiAdapter],
+  networks,
+  projectId,
+  metadata,
+  features: {
+    analytics: true
+  }
+})
 
 const queryClient = new QueryClient()
 
@@ -40,7 +54,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <WagmiConfig config={wagmiConfig}>
+      <WagmiProvider config={wagmiAdapter.wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <div className="app">
             <header>
@@ -48,7 +62,7 @@ function App() {
               <div className="header-controls">
                 <LanguageSwitcher />
                 <ThemeToggle />
-                <w3m-button />
+                <appkit-button />
               </div>
             </header>
 
@@ -62,7 +76,7 @@ function App() {
             </footer>
           </div>
         </QueryClientProvider>
-      </WagmiConfig>
+      </WagmiProvider>
     </ThemeProvider>
   )
 }
