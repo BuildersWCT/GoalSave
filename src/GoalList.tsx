@@ -18,7 +18,16 @@ interface Goal {
   archived: boolean
 }
 
-export function GoalList() {
+interface GoalListProps {
+  onEditGoal?: (goalData: {
+    name: string
+    token: string
+    target: string
+    lockUntil: string
+  }) => void
+}
+
+export function GoalList({ onEditGoal }: GoalListProps) {
   const { t } = useTranslation()
   const [showArchived, setShowArchived] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
@@ -53,6 +62,21 @@ export function GoalList() {
       functionName: 'restoreGoal',
       args: [goalId],
     })
+  }
+
+  const handleDuplicateGoal = (goal: Goal) => {
+    // Convert the goal data to a format suitable for the form
+    const goalForEditing = {
+      name: `${goal.name} (Copy)`,
+      token: goal.token,
+      target: goal.target.toString(),
+      lockUntil: goal.lockUntil.toString()
+    }
+
+    // Pass this to the parent component to show the form with these values
+    if (onEditGoal) {
+      onEditGoal(goalForEditing)
+    }
   }
 
   // Refresh goals after transaction
@@ -114,15 +138,26 @@ export function GoalList() {
             </div>
             <div className="goal-actions">
               {!goal.archived && (
-                <button
-                  onClick={() => handleArchiveGoal(goal.id)}
-                  disabled={isPending || isConfirming || refreshing}
-                  className="btn-archive"
-                  aria-label={`Archive goal: ${goal.name}`}
-                  title={`Archive goal: ${goal.name}`}
-                >
-                  {isPending || isConfirming || refreshing ? t('archiving') : t('archive')}
-                </button>
+                <>
+                  <button
+                    onClick={() => handleDuplicateGoal(goal)}
+                    disabled={isPending || isConfirming || refreshing}
+                    className="btn-duplicate"
+                    aria-label={`Duplicate goal: ${goal.name}`}
+                    title={`Duplicate goal: ${goal.name}`}
+                  >
+                    {t('duplicate')}
+                  </button>
+                  <button
+                    onClick={() => handleArchiveGoal(goal.id)}
+                    disabled={isPending || isConfirming || refreshing}
+                    className="btn-archive"
+                    aria-label={`Archive goal: ${goal.name}`}
+                    title={`Archive goal: ${goal.name}`}
+                  >
+                    {isPending || isConfirming || refreshing ? t('archiving') : t('archive')}
+                  </button>
+                </>
               )}
               {goal.archived && (
                 <button

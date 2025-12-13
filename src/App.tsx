@@ -48,9 +48,29 @@ const queryClient = new QueryClient()
 function App() {
   const { t } = useTranslation()
   const [refreshKey, setRefreshKey] = useState(0)
+  const [editingGoal, setEditingGoal] = useState<{
+    name: string
+    token: string
+    target: string
+    lockUntil: string
+  } | null>(null)
 
   const handleGoalCreated = () => {
     setRefreshKey(prev => prev + 1)
+    setEditingGoal(null) // Reset editing state after goal creation
+  }
+
+  const handleEditGoal = (goalData: {
+    name: string
+    token: string
+    target: string
+    lockUntil: string
+  }) => {
+    setEditingGoal(goalData)
+  }
+
+  const handleCancelEdit = () => {
+    setEditingGoal(null)
   }
 
   return (
@@ -68,8 +88,16 @@ function App() {
             </header>
 
             <main>
-              <GoalForm onGoalCreated={handleGoalCreated} />
-              <GoalList key={refreshKey} />
+              <GoalForm
+                onGoalCreated={handleGoalCreated}
+                onGoalUpdated={handleCancelEdit}
+                initialGoal={editingGoal}
+                isEditing={!!editingGoal}
+              />
+              <GoalList
+                key={refreshKey}
+                onEditGoal={handleEditGoal}
+              />
             </main>
 
             <footer>

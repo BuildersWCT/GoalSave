@@ -43,6 +43,13 @@ const resources = {
       active: 'Active',
       archivedGoals: 'Archived Goals',
 
+      // Duplicate functionality
+      duplicate: 'Duplicate',
+      duplicating: 'Duplicating...',
+      editGoal: 'Edit Goal',
+      saveChanges: 'Save Changes',
+      cancel: 'Cancel',
+
       // Footer
       footerText: 'Built with Vite + React + WalletConnect on Celo',
 
@@ -119,6 +126,13 @@ const resources = {
       restoring: 'Restaurando...',
       active: 'Activos',
       archivedGoals: 'Objetivos Archivados',
+
+      // Duplicate functionality
+      duplicate: 'Duplicar',
+      duplicating: 'Duplicando...',
+      editGoal: 'Editar Objetivo',
+      saveChanges: 'Guardar Cambios',
+      cancel: 'Cancelar',
 
       // Footer
       footerText: 'Construido con Vite + React + WalletConnect en Celo',
@@ -197,6 +211,13 @@ const resources = {
       active: 'Actifs',
       archivedGoals: 'Objectifs Archivés',
 
+      // Duplicate functionality
+      duplicate: 'Dupliquer',
+      duplicating: 'Duplication...',
+      editGoal: 'Modifier l\'Objectif',
+      saveChanges: 'Enregistrer les Modifications',
+      cancel: 'Annuler',
+
       // Footer
       footerText: 'Construit avec Vite + React + WalletConnect sur Celo',
 
@@ -273,6 +294,13 @@ const resources = {
       restoring: 'Stelle wieder her...',
       active: 'Aktiv',
       archivedGoals: 'Archivierte Ziele',
+
+      // Duplicate functionality
+      duplicate: 'Duplizieren',
+      duplicating: 'Dupliziere...',
+      editGoal: 'Ziel Bearbeiten',
+      saveChanges: 'Änderungen Speichern',
+      cancel: 'Abbrechen',
 
       // Footer
       footerText: 'Erstellt mit Vite + React + WalletConnect auf Celo',

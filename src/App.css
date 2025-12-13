@@ -423,3 +423,41 @@ footer {
     padding-right: 2.25rem;
   }
 }
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-cancel {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.btn-cancel:hover {
+  background-color: var(--secondary-color-hover);
+}
+
+/* Duplicate button styles */
+.btn-duplicate {
+  background: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.btn-duplicate:hover:not(:disabled) {
+  background: #3182ce;
+  color: white;
+  border-color: #3182ce;
+}
+
+.btn-duplicate:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
