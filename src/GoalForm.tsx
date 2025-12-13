@@ -16,14 +16,22 @@ const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${st
 
 interface GoalFormProps {
   onGoalCreated: () => void
+  onGoalUpdated?: () => void
+  initialGoal?: {
+    name: string
+    token: string
+    target: string
+    lockUntil: string
+  }
+  isEditing?: boolean
 }
 
-export function GoalForm({ onGoalCreated }: GoalFormProps) {
+export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing = false }: GoalFormProps) {
   const { t } = useTranslation()
-  const [name, setName] = useState('')
-  const [token, setToken] = useState('0x0000000000000000000000000000000000000000') // CELO
-  const [target, setTarget] = useState('')
-  const [lockUntil, setLockUntil] = useState('')
+  const [name, setName] = useState(initialGoal?.name || '')
+  const [token, setToken] = useState(initialGoal?.token || '0x0000000000000000000000000000000000000000') // CELO
+  const [target, setTarget] = useState(initialGoal?.target || '')
+  const [lockUntil, setLockUntil] = useState(initialGoal?.lockUntil || '')
   const [validationState, setValidationState] = useState<FormValidationState>(createInitialFormValidation())
   const [isSubmitAttempted, setIsSubmitAttempted] = useState(false)
 
@@ -153,7 +161,7 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
 
   return (
     <div className={`goal-form ${isPending || isConfirming ? 'form--loading' : ''}`}>
-      <h3>{t('createGoal')}</h3>
+      <h3>{isEditing ? t('editGoal') : t('createGoal')}</h3>
       
       {/* Show form-level errors if submission was attempted */}
       {isSubmitAttempted && !isFormCurrentlyValid && (
@@ -312,24 +320,39 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
           />
         </div>
 
-        <button 
-          type="submit" 
-          disabled={!canSubmit}
-          aria-describedby={!canSubmit && isSubmitAttempted ? 'submit-error' : undefined}
-        >
-          {isPending ? t('creating') : isConfirming ? t('waiting') : t('createButton')}
-        </button>
-        
-        {!canSubmit && isSubmitAttempted && (
-          <div id="submit-error" className="submit-error" style={{ 
-            fontSize: '0.875rem', 
-            color: '#e53e3e', 
-            marginTop: '0.5rem',
-            display: 'block'
-          }}>
-            Please fix the form errors before submitting.
-          </div>
-        )}
+        <div className="form-buttons">
+          <button
+            type="submit"
+            disabled={!canSubmit}
+            aria-describedby={!canSubmit && isSubmitAttempted ? 'submit-error' : undefined}
+          >
+            {isPending ? t('creating') : isConfirming ? t('waiting') : isEditing ? t('saveChanges') : t('createButton')}
+          </button>
+
+          {isEditing && (
+            <button
+              type="button"
+              onClick={() => {
+                if (onGoalUpdated) onGoalUpdated()
+              }}
+              disabled={isPending || isConfirming}
+              className="btn-cancel"
+            >
+              {t('cancel')}
+            </button>
+          )}
+        </div>
+
+         {!canSubmit && isSubmitAttempted && (
+           <div id="submit-error" className="submit-error" style={{
+             fontSize: '0.875rem',
+             color: '#e53e3e',
+             marginTop: '0.5rem',
+             display: 'block'
+           }}>
+             Please fix the form errors before submitting.
+           </div>
+         )}
       </form>
     </div>
   )
