@@ -1,0 +1,32 @@
+.currency-selector {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.currency-selector:hover {
+  border-color: #007bff;
+}
+
+.currency-selector:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.currency-selector-inline {
+  font-size: 12px;
+  padding: 4px 8px;
+  margin-right: 8px;
+}
+
+.currency-selector:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}
