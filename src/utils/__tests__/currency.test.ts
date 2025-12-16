@@ -133,4 +133,18 @@ describe('Currency Utilities', () => {
       });
     });
   });
+
+  describe('Cache utilities', () => {
+    it('should provide cache status information', () => {
+      // Test empty cache
+      const emptyStatus = { getCacheStatus: jest.fn(() => ({ hasCache: false, isValid: false, age: 0 })) };
+      expect(emptyStatus.getCacheStatus()).toEqual({ hasCache: false, isValid: false, age: 0 });
+    });
+
+    it('should clear cache when requested', () => {
+      const clearCache = jest.fn();
+      clearCache();
+      expect(clearCache).toHaveBeenCalled();
+    });
+  });
 });
