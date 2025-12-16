@@ -167,6 +167,7 @@ export async function convertCurrency(
   const toRate = exchangeRates[toCurrency];
   
   if (!fromRate || !toRate) {
+    console.warn(`Exchange rates not available for ${fromCurrency} or ${toCurrency}`);
     return amount;
   }
   
@@ -211,4 +212,32 @@ export function getCurrencyDisplayName(currencyCode: string): string {
  */
 export function isCurrencySupported(currencyCode: string): boolean {
   return SUPPORTED_CURRENCIES.some(c => c.code === currencyCode);
+}
+
+/**
+ * Clear cached exchange rates (useful for testing or force refresh)
+ */
+export function clearExchangeRateCache(): void {
+  try {
+    localStorage.removeItem(CACHE_KEY);
+  } catch (error) {
+    console.error('Error clearing exchange rate cache:', error);
+  }
+}
+
+/**
+ * Get cache status information
+ */
+export function getCacheStatus(): { hasCache: boolean; isValid: boolean; age: number } {
+  const cached = getCachedRates();
+  if (!cached) {
+    return { hasCache: false, isValid: false, age: 0 };
+  }
+  
+  const age = Date.now() - cached.timestamp;
+  return {
+    hasCache: true,
+    isValid: isCacheValid(cached),
+    age
+  };
 }
