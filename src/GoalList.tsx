@@ -33,8 +33,11 @@ export function GoalList() {
         <p>{t('noGoals')}</p>
       ) : (
         goals.map((goal) => {
+          // Determine the currency based on token address
           const tokenCurrency = goal.token === '0x0000000000000000000000000000000000000000' ? 'CELO' : 'USD'
-          const targetAmount = Number(goal.target) / 1e18 // Assuming 18 decimal places
+          
+          // Convert from wei to regular units (assuming 18 decimal places)
+          const targetAmount = Number(goal.target) / 1e18
           const balanceAmount = Number(goal.balance) / 1e18
 
           return (
