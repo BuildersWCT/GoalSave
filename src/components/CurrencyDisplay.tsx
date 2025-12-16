@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './CurrencyDisplay.css';
 import { formatCurrency, convertCurrency, getExchangeRates } from '../utils/currency';
 import { CurrencySelector } from './CurrencySelector';
@@ -14,6 +14,11 @@ export function CurrencyDisplay({ amount, originalCurrency, className = '' }: Cu
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Memoize formatted original amount to avoid re-formatting
+  const formattedOriginalAmount = useMemo(() => {
+    return formatCurrency(amount, originalCurrency);
+  }, [amount, originalCurrency]);
 
   useEffect(() => {
     const performConversion = async () => {
@@ -40,11 +45,17 @@ export function CurrencyDisplay({ amount, originalCurrency, className = '' }: Cu
     performConversion();
   }, [amount, originalCurrency, selectedCurrency]);
 
+  // Memoize formatted converted amount
+  const formattedConvertedAmount = useMemo(() => {
+    if (convertedAmount === null) return null;
+    return formatCurrency(convertedAmount, selectedCurrency);
+  }, [convertedAmount, selectedCurrency]);
+
   return (
     <div className={`currency-display ${className}`}>
       <div className="currency-conversion">
         <span className="original-amount">
-          {formatCurrency(amount, originalCurrency)}
+          {formattedOriginalAmount}
         </span>
         <span className="conversion-arrow">→</span>
         <div className="converted-section">
@@ -58,8 +69,8 @@ export function CurrencyDisplay({ amount, originalCurrency, className = '' }: Cu
               <span className="loading">Converting...</span>
             ) : error ? (
               <span className="error">{error}</span>
-            ) : convertedAmount !== null ? (
-              formatCurrency(convertedAmount, selectedCurrency)
+            ) : formattedConvertedAmount !== null ? (
+              formattedConvertedAmount
             ) : (
               'N/A'
             )}
