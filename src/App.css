@@ -106,6 +106,25 @@ main {
   opacity: 0.8;
 }
 
+.goal-details {
+  margin-top: 0.5rem;
+}
+
+.amount-section {
+  margin-bottom: 0.5rem;
+}
+
+.amount-section label {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-right: 0.5rem;
+}
+
+.target-currency,
+.balance-currency {
+  display: inline-block;
+}
+
 footer {
   text-align: center;
   color: var(--text-color);
