@@ -4,6 +4,12 @@ import { useNotifications } from '../contexts/NotificationContext'
 import { NotificationList } from './NotificationList'
 import './NotificationBell.css'
 
+/**
+ * NotificationBell Component
+ * 
+ * A bell icon with badge that shows unread notification count
+ * and dropdown with notification list when clicked
+ */
 export function NotificationBell() {
   const { t } = useTranslation()
   const { unreadCount } = useNotifications()
