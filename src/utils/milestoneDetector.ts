@@ -19,6 +19,12 @@ interface MilestoneProgress {
   }
 }
 
+/**
+ * MilestoneDetector
+ * 
+ * Tracks goal progress and detects when milestones are reached.
+ * Automatically triggers notifications for achievements and progress updates.
+ */
 class MilestoneDetector {
   private progress: MilestoneProgress = {}
   private notificationCallback: ((notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => void) | null = null
