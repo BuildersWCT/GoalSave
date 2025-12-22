@@ -49,7 +49,14 @@ const resources = {
       english: 'English',
       spanish: 'Spanish',
       french: 'French',
-      german: 'German'
+      german: 'German',
+
+      // Notifications
+      notifications: 'Notifications',
+      noNotifications: 'No notifications yet',
+      unread: 'unread',
+      clearAll: 'Clear all',
+      removeNotification: 'Remove notification'
     }
   },
   es: {
@@ -97,7 +104,14 @@ const resources = {
       english: 'Inglés',
       spanish: 'Español',
       french: 'Francés',
-      german: 'Alemán'
+      german: 'Alemán',
+
+      // Notifications
+      notifications: 'Notificaciones',
+      noNotifications: 'Aún no hay notificaciones',
+      unread: 'no leído',
+      clearAll: 'Limpiar todo',
+      removeNotification: 'Eliminar notificación'
     }
   },
   fr: {
@@ -145,7 +159,14 @@ const resources = {
       english: 'Anglais',
       spanish: 'Espagnol',
       french: 'Français',
-      german: 'Allemand'
+      german: 'Allemand',
+
+      // Notifications
+      notifications: 'Notifications',
+      noNotifications: 'Pas encore de notifications',
+      unread: 'non lu',
+      clearAll: 'Tout effacer',
+      removeNotification: 'Supprimer la notification'
     }
   },
   de: {
@@ -193,7 +214,14 @@ const resources = {
       english: 'Englisch',
       spanish: 'Spanisch',
       french: 'Französisch',
-      german: 'Deutsch'
+      german: 'Deutsch',
+
+      // Notifications
+      notifications: 'Benachrichtigungen',
+      noNotifications: 'Noch keine Benachrichtigungen',
+      unread: 'ungelesen',
+      clearAll: 'Alles löschen',
+      removeNotification: 'Benachrichtigung entfernen'
     }
   }
 }

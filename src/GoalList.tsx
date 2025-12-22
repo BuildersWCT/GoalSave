@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useReadContract } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 import { CurrencyDisplay } from './components/CurrencyDisplay'
+import { useMilestoneDetection } from './hooks/useMilestoneDetection'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -23,6 +24,9 @@ export function GoalList() {
     abi: CeloSaveABI,
     functionName: 'getMyGoals',
   }) as { data: Goal[] | undefined; isLoading: boolean }
+
+  // Initialize milestone detection
+  useMilestoneDetection({ goals, isLoading })
 
   if (isLoading) return <div className="goal-list"><p>{t('loading')}</p></div>
 

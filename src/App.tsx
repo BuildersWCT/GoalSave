@@ -6,8 +6,10 @@ import { celoAlfajores } from '@reown/appkit/networks'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { NotificationProvider } from './contexts/NotificationContext'
 import { ThemeToggle } from './components/ThemeToggle'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
+import { NotificationBell } from './components/NotificationBell'
 import { GoalForm } from './GoalForm'
 import { GoalList } from './GoalList'
 import './App.css'
@@ -54,29 +56,32 @@ function App() {
 
   return (
     <ThemeProvider>
-      <WagmiProvider config={wagmiAdapter.wagmiConfig}>
-        <QueryClientProvider client={queryClient}>
-          <div className="app">
-            <header>
-              <h1>{t('appTitle')}</h1>
-              <div className="header-controls">
-                <LanguageSwitcher />
-                <ThemeToggle />
-                <appkit-button />
-              </div>
-            </header>
+      <NotificationProvider>
+        <WagmiProvider config={wagmiAdapter.wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            <div className="app">
+              <header>
+                <h1>{t('appTitle')}</h1>
+                <div className="header-controls">
+                  <NotificationBell />
+                  <LanguageSwitcher />
+                  <ThemeToggle />
+                  <appkit-button />
+                </div>
+              </header>
 
-            <main>
-              <GoalForm onGoalCreated={handleGoalCreated} />
-              <GoalList key={refreshKey} />
-            </main>
+              <main>
+                <GoalForm onGoalCreated={handleGoalCreated} />
+                <GoalList key={refreshKey} />
+              </main>
 
-            <footer>
-              <p>{t('footerText')}</p>
-            </footer>
-          </div>
-        </QueryClientProvider>
-      </WagmiProvider>
+              <footer>
+                <p>{t('footerText')}</p>
+              </footer>
+            </div>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </NotificationProvider>
     </ThemeProvider>
   )
 }
