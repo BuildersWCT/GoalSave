@@ -26,11 +26,29 @@ const resources = {
       // Goal List
       yourGoals: 'Your Goals',
       noGoals: 'No goals yet. Create your first goal!',
+      noActiveGoals: 'No active goals.',
+      noArchivedGoals: 'No archived goals.',
       loading: 'Loading goals...',
       target: 'Target',
       balance: 'Balance',
       token: 'Token',
       status: 'Status',
+      archived: 'Archived',
+      
+      // Archive functionality
+      archive: 'Archive',
+      restore: 'Restore',
+      archiving: 'Archiving...',
+      restoring: 'Restoring...',
+      active: 'Active',
+      archivedGoals: 'Archived Goals',
+
+      // Duplicate functionality
+      duplicate: 'Duplicate',
+      duplicating: 'Duplicating...',
+      editGoal: 'Edit Goal',
+      saveChanges: 'Save Changes',
+      cancel: 'Cancel',
 
       // Footer
       footerText: 'Built with Vite + React + WalletConnect on Celo',
@@ -51,12 +69,23 @@ const resources = {
       french: 'French',
       german: 'German',
 
-      // Notifications
-      notifications: 'Notifications',
-      noNotifications: 'No notifications yet',
-      unread: 'unread',
-      clearAll: 'Clear all',
-      removeNotification: 'Remove notification'
+      // Export functionality
+      exportGoals: 'Export Goals',
+      exportToCSV: 'Export CSV',
+      exportToPDF: 'Export PDF',
+      exporting: 'Exporting...',
+      exportFailed: 'Export failed. Please try again.',
+      noGoalsToExport: 'No goals to export',
+      includeArchivedGoals: 'Include archived goals',
+      includeChartsInExport: 'Include charts in export',
+      showOptions: 'Show export options',
+      hideOptions: 'Hide export options',
+      totalGoals: 'Total Goals',
+      activeGoals: 'Active Goals',
+      closedGoals: 'Closed Goals',
+      avgProgress: 'Avg Progress',
+      goalProgressChart: 'Goal Progress Chart',
+      goalProgressOverview: 'Goal Progress Overview'
     }
   },
   es: {
@@ -81,11 +110,29 @@ const resources = {
       // Goal List
       yourGoals: 'Tus Objetivos',
       noGoals: '¡Aún no hay objetivos. Crea tu primer objetivo!',
+      noActiveGoals: 'No hay objetivos activos.',
+      noArchivedGoals: 'No hay objetivos archivados.',
       loading: 'Cargando objetivos...',
       target: 'Objetivo',
       balance: 'Saldo',
       token: 'Token',
       status: 'Estado',
+      archived: 'Archivado',
+      
+      // Archive functionality
+      archive: 'Archivar',
+      restore: 'Restaurar',
+      archiving: 'Archivando...',
+      restoring: 'Restaurando...',
+      active: 'Activos',
+      archivedGoals: 'Objetivos Archivados',
+
+      // Duplicate functionality
+      duplicate: 'Duplicar',
+      duplicating: 'Duplicando...',
+      editGoal: 'Editar Objetivo',
+      saveChanges: 'Guardar Cambios',
+      cancel: 'Cancelar',
 
       // Footer
       footerText: 'Construido con Vite + React + WalletConnect en Celo',
@@ -106,12 +153,23 @@ const resources = {
       french: 'Francés',
       german: 'Alemán',
 
-      // Notifications
-      notifications: 'Notificaciones',
-      noNotifications: 'Aún no hay notificaciones',
-      unread: 'no leído',
-      clearAll: 'Limpiar todo',
-      removeNotification: 'Eliminar notificación'
+      // Export functionality
+      exportGoals: 'Exportar Objetivos',
+      exportToCSV: 'Exportar CSV',
+      exportToPDF: 'Exportar PDF',
+      exporting: 'Exportando...',
+      exportFailed: 'Error en la exportación. Inténtalo de nuevo.',
+      noGoalsToExport: 'No hay objetivos para exportar',
+      includeArchivedGoals: 'Incluir objetivos archivados',
+      includeChartsInExport: 'Incluir gráficos en la exportación',
+      showOptions: 'Mostrar opciones de exportación',
+      hideOptions: 'Ocultar opciones de exportación',
+      totalGoals: 'Total de Objetivos',
+      activeGoals: 'Objetivos Activos',
+      closedGoals: 'Objetivos Cerrados',
+      avgProgress: 'Progreso Promedio',
+      goalProgressChart: 'Gráfico de Progreso de Objetivos',
+      goalProgressOverview: 'Resumen del Progreso de Objetivos'
     }
   },
   fr: {
@@ -136,11 +194,29 @@ const resources = {
       // Goal List
       yourGoals: 'Vos Objectifs',
       noGoals: 'Aucun objectif pour le moment. Créez votre premier objectif!',
+      noActiveGoals: 'Aucun objectif actif.',
+      noArchivedGoals: 'Aucun objectif archivé.',
       loading: 'Chargement des objectifs...',
       target: 'Cible',
       balance: 'Solde',
       token: 'Token',
       status: 'Statut',
+      archived: 'Archivé',
+      
+      // Archive functionality
+      archive: 'Archiver',
+      restore: 'Restaurer',
+      archiving: 'Archivage...',
+      restoring: 'Restauration...',
+      active: 'Actifs',
+      archivedGoals: 'Objectifs Archivés',
+
+      // Duplicate functionality
+      duplicate: 'Dupliquer',
+      duplicating: 'Duplication...',
+      editGoal: 'Modifier l\'Objectif',
+      saveChanges: 'Enregistrer les Modifications',
+      cancel: 'Annuler',
 
       // Footer
       footerText: 'Construit avec Vite + React + WalletConnect sur Celo',
@@ -161,12 +237,23 @@ const resources = {
       french: 'Français',
       german: 'Allemand',
 
-      // Notifications
-      notifications: 'Notifications',
-      noNotifications: 'Pas encore de notifications',
-      unread: 'non lu',
-      clearAll: 'Tout effacer',
-      removeNotification: 'Supprimer la notification'
+      // Export functionality
+      exportGoals: 'Exporter les Objectifs',
+      exportToCSV: 'Exporter CSV',
+      exportToPDF: 'Exporter PDF',
+      exporting: 'Exportation...',
+      exportFailed: 'L\'exportation a échoué. Veuillez réessayer.',
+      noGoalsToExport: 'Aucun objectif à exporter',
+      includeArchivedGoals: 'Inclure les objectifs archivés',
+      includeChartsInExport: 'Inclure les graphiques dans l\'exportation',
+      showOptions: 'Afficher les options d\'exportation',
+      hideOptions: 'Masquer les options d\'exportation',
+      totalGoals: 'Total des Objectifs',
+      activeGoals: 'Objectifs Actifs',
+      closedGoals: 'Objectifs Fermés',
+      avgProgress: 'Progrès Moyen',
+      goalProgressChart: 'Graphique de Progrès des Objectifs',
+      goalProgressOverview: 'Aperçu du Progrès des Objectifs'
     }
   },
   de: {
@@ -191,11 +278,29 @@ const resources = {
       // Goal List
       yourGoals: 'Ihre Ziele',
       noGoals: 'Noch keine Ziele. Erstellen Sie Ihr erstes Ziel!',
+      noActiveGoals: 'Keine aktiven Ziele.',
+      noArchivedGoals: 'Keine archivierten Ziele.',
       loading: 'Ziele laden...',
       target: 'Ziel',
       balance: 'Guthaben',
       token: 'Token',
       status: 'Status',
+      archived: 'Archiviert',
+      
+      // Archive functionality
+      archive: 'Archivieren',
+      restore: 'Wiederherstellen',
+      archiving: 'Archiviere...',
+      restoring: 'Stelle wieder her...',
+      active: 'Aktiv',
+      archivedGoals: 'Archivierte Ziele',
+
+      // Duplicate functionality
+      duplicate: 'Duplizieren',
+      duplicating: 'Dupliziere...',
+      editGoal: 'Ziel Bearbeiten',
+      saveChanges: 'Änderungen Speichern',
+      cancel: 'Abbrechen',
 
       // Footer
       footerText: 'Erstellt mit Vite + React + WalletConnect auf Celo',
@@ -216,12 +321,23 @@ const resources = {
       french: 'Französisch',
       german: 'Deutsch',
 
-      // Notifications
-      notifications: 'Benachrichtigungen',
-      noNotifications: 'Noch keine Benachrichtigungen',
-      unread: 'ungelesen',
-      clearAll: 'Alles löschen',
-      removeNotification: 'Benachrichtigung entfernen'
+      // Export functionality
+      exportGoals: 'Ziele Exportieren',
+      exportToCSV: 'CSV Exportieren',
+      exportToPDF: 'PDF Exportieren',
+      exporting: 'Exportiere...',
+      exportFailed: 'Export fehlgeschlagen. Bitte versuchen Sie es erneut.',
+      noGoalsToExport: 'Keine Ziele zum Exportieren',
+      includeArchivedGoals: 'Archivierte Ziele einschließen',
+      includeChartsInExport: 'Diagramme in Export einschließen',
+      showOptions: 'Export-Optionen anzeigen',
+      hideOptions: 'Export-Optionen ausblenden',
+      totalGoals: 'Gesamte Ziele',
+      activeGoals: 'Aktive Ziele',
+      closedGoals: 'Geschlossene Ziele',
+      avgProgress: 'Durchschn. Fortschritt',
+      goalProgressChart: 'Ziel-Fortschrittsdiagramm',
+      goalProgressOverview: 'Ziel-Fortschrittsübersicht'
     }
   }
 }

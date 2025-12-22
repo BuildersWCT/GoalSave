@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useReadContract } from 'wagmi'
+import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
-import { CurrencyDisplay } from './components/CurrencyDisplay'
-import { useMilestoneDetection } from './hooks/useMilestoneDetection'
+import { ExportControls } from './components/ExportControls'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -15,61 +15,164 @@ interface Goal {
   createdAt: bigint
   lockUntil: bigint
   closed: boolean
+  archived: boolean
 }
 
-export function GoalList() {
+interface GoalListProps {
+  onEditGoal?: (goalData: {
+    name: string
+    token: string
+    target: string
+    lockUntil: string
+  }) => void
+}
+
+export function GoalList({ onEditGoal }: GoalListProps) {
   const { t } = useTranslation()
+  const [showArchived, setShowArchived] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
+  
   const { data: goals, isLoading } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: CeloSaveABI,
     functionName: 'getMyGoals',
   }) as { data: Goal[] | undefined; isLoading: boolean }
 
-  // Initialize milestone detection
-  useMilestoneDetection({ goals, isLoading })
+  const { writeContract, data: hash, isPending } = useWriteContract()
+
+  const { isLoading: isConfirming } = useWaitForTransactionReceipt({
+    hash,
+  })
+
+  const handleArchiveGoal = async (goalId: bigint) => {
+    setRefreshing(true)
+    writeContract({
+      address: CONTRACT_ADDRESS,
+      abi: CeloSaveABI,
+      functionName: 'archiveGoal',
+      args: [goalId],
+    })
+  }
+
+  const handleRestoreGoal = async (goalId: bigint) => {
+    setRefreshing(true)
+    writeContract({
+      address: CONTRACT_ADDRESS,
+      abi: CeloSaveABI,
+      functionName: 'restoreGoal',
+      args: [goalId],
+    })
+  }
+
+  const handleDuplicateGoal = (goal: Goal) => {
+    // Convert the goal data to a format suitable for the form
+    const goalForEditing = {
+      name: `${goal.name} (Copy)`,
+      token: goal.token,
+      target: goal.target.toString(),
+      lockUntil: goal.lockUntil.toString()
+    }
+
+    // Pass this to the parent component to show the form with these values
+    if (onEditGoal) {
+      onEditGoal(goalForEditing)
+    }
+  }
+
+  // Refresh goals after transaction
+  useEffect(() => {
+    if (hash && !isConfirming) {
+      setRefreshing(false)
+    }
+  }, [hash, isConfirming])
+
+  // Filter goals based on showArchived state
+  const filteredGoals = goals?.filter(goal => showArchived ? goal.archived : !goal.archived) || []
 
   if (isLoading) return <div className="goal-list"><p>{t('loading')}</p></div>
 
+  const activeGoals = goals?.filter(goal => !goal.archived) || []
+  const archivedGoals = goals?.filter(goal => goal.archived) || []
+
   return (
     <div className="goal-list">
-      <h3>{t('yourGoals')}</h3>
-      {!goals || goals.length === 0 ? (
-        <p>{t('noGoals')}</p>
-      ) : (
-        goals.map((goal) => {
-          // Determine the currency based on token address
-          const tokenCurrency = goal.token === '0x0000000000000000000000000000000000000000' ? 'CELO' : 'USD'
-          
-          // Convert from wei to regular units (assuming 18 decimal places)
-          const targetAmount = Number(goal.target) / 1e18
-          const balanceAmount = Number(goal.balance) / 1e18
+      {/* Export Controls */}
+      {goals && goals.length > 0 && (
+        <ExportControls goals={goals} />
+      )}
 
-          return (
-            <div key={goal.id.toString()} className="goal-item">
-              <h4>{goal.name}</h4>
-              <div className="goal-details">
-                <div className="amount-section">
-                  <label>{t('target')}:</label>
-                  <CurrencyDisplay
-                    amount={targetAmount}
-                    originalCurrency={tokenCurrency}
-                    className="target-currency"
-                  />
-                </div>
-                <div className="amount-section">
-                  <label>{t('balance')}:</label>
-                  <CurrencyDisplay
-                    amount={balanceAmount}
-                    originalCurrency={tokenCurrency}
-                    className="balance-currency"
-                  />
-                </div>
-                <p>{t('token')}: {tokenCurrency}</p>
-                <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
-              </div>
+      <div className="goal-list-header">
+        <h3>{t('yourGoals')}</h3>
+        <div className="goal-view-toggle">
+          <button 
+            className={!showArchived ? 'active' : ''}
+            onClick={() => setShowArchived(false)}
+            disabled={activeGoals.length === 0}
+            aria-label={`View active goals (${activeGoals.length} total)`}
+          >
+            Active ({activeGoals.length})
+          </button>
+          <button 
+            className={showArchived ? 'active' : ''}
+            onClick={() => setShowArchived(true)}
+            disabled={archivedGoals.length === 0}
+            aria-label={`View archived goals (${archivedGoals.length} total)`}
+          >
+            Archived ({archivedGoals.length})
+          </button>
+        </div>
+      </div>
+
+      {!filteredGoals || filteredGoals.length === 0 ? (
+        <p>{showArchived ? t('noArchivedGoals') : t('noActiveGoals')}</p>
+      ) : (
+        filteredGoals.map((goal) => (
+          <div key={goal.id.toString()} className={`goal-item ${goal.archived ? 'goal-item--archived' : ''}`}>
+            <h4>{goal.name}</h4>
+            <div className="goal-details">
+              <p>{t('target')}: {goal.target.toString()}</p>
+              <p>{t('balance')}: {goal.balance.toString()}</p>
+              <p>{t('token')}: {goal.token === '0x0000000000000000000000000000000000000000' ? 'CELO' : goal.token}</p>
+              <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
+              {goal.archived && <p><strong>{t('archived')}</strong>: Yes</p>}
             </div>
-          )
-        })
+            <div className="goal-actions">
+              {!goal.archived && (
+                <>
+                  <button
+                    onClick={() => handleDuplicateGoal(goal)}
+                    disabled={isPending || isConfirming || refreshing}
+                    className="btn-duplicate"
+                    aria-label={`Duplicate goal: ${goal.name}`}
+                    title={`Duplicate goal: ${goal.name}`}
+                  >
+                    {t('duplicate')}
+                  </button>
+                  <button
+                    onClick={() => handleArchiveGoal(goal.id)}
+                    disabled={isPending || isConfirming || refreshing}
+                    className="btn-archive"
+                    aria-label={`Archive goal: ${goal.name}`}
+                    title={`Archive goal: ${goal.name}`}
+                  >
+                    {isPending || isConfirming || refreshing ? t('archiving') : t('archive')}
+                  </button>
+                </>
+              )}
+              {goal.archived && (
+                <button
+                  onClick={() => handleRestoreGoal(goal.id)}
+                  disabled={isPending || isConfirming || refreshing}
+                  className="btn-restore"
+                  aria-label={`Restore goal: ${goal.name}`}
+                  title={`Restore goal: ${goal.name}`}
+                >
+                  {isPending || isConfirming || refreshing ? t('restoring') : t('restore')}
+                </button>
+              )}
+            </div>
+          </div>
+        ))
       )}
     </div>
   )
