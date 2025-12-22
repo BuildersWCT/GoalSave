@@ -19,6 +19,8 @@
 
 .notification-bell:hover {
   background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+  transition: all 0.2s ease;
 }
 
 .notification-bell.has-unread {
