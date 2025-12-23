@@ -1,0 +1,390 @@
+.goal-collaboration-setup {
+  padding: 24px;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.collaboration-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collaboration-prompt svg {
+  color: #007bff;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.collaboration-prompt h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.collaboration-prompt p {
+  margin: 0 0 20px 0;
+  color: #666;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.make-collaborative-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.make-collaborative-btn:hover {
+  background: #0056b3;
+}
+
+.goal-collaboration {
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.collaboration-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.collaboration-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.collaboration-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.leaderboard-btn,
+.invite-btn {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.leaderboard-btn:hover,
+.invite-btn:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.collaboration-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.collaborators-section h5,
+.pending-invites-section h5 {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.no-collaborators {
+  color: #666;
+  font-style: italic;
+  padding: 16px;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.collaborators-list {
+  display: grid;
+  gap: 12px;
+}
+
+.collaborator-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.collaborator-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.collaborator-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.default-avatar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.collaborator-info {
+  flex: 1;
+}
+
+.collaborator-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.collaborator-role {
+  font-size: 12px;
+  color: #007bff;
+  text-transform: capitalize;
+  margin-bottom: 4px;
+}
+
+.collaborator-stats {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contribution-amount {
+  font-weight: 600;
+  color: #28a745;
+}
+
+.pending-invites-list {
+  display: grid;
+  gap: 8px;
+}
+
+.pending-invite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+}
+
+.invite-address {
+  font-family: monospace;
+  font-size: 14px;
+  color: #856404;
+}
+
+.invite-status {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.invite-status:contains("pending") {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.invite-status:contains("accepted") {
+  background: #d4edda;
+  color: #155724;
+}
+
+.invite-status:contains("declined") {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.invite-date {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .goal-collaboration-setup {
+    background: #2d3748;
+  }
+
+  .collaboration-prompt h4 {
+    color: #e2e8f0;
+  }
+
+  .collaboration-prompt p {
+    color: #a0aec0;
+  }
+
+  .goal-collaboration {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+
+  .collaboration-header h4 {
+    color: #e2e8f0;
+  }
+
+  .leaderboard-btn,
+  .invite-btn {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+  }
+
+  .leaderboard-btn:hover,
+  .invite-btn:hover {
+    background: #718096;
+  }
+
+  .collaboration-stats {
+    background: #1a202c;
+  }
+
+  .stat-label {
+    color: #a0aec0;
+  }
+
+  .stat-value {
+    color: #e2e8f0;
+  }
+
+  .collaborators-section h5,
+  .pending-invites-section h5 {
+    color: #e2e8f0;
+  }
+
+  .no-collaborators {
+    background: #1a202c;
+    color: #a0aec0;
+  }
+
+  .collaborator-item {
+    background: #1a202c;
+    border-color: #4a5568;
+  }
+
+  .collaborator-name {
+    color: #e2e8f0;
+  }
+
+  .collaborator-stats {
+    color: #a0aec0;
+  }
+
+  .pending-invite-item {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .invite-address {
+    color: #e2e8f0;
+  }
+
+  .invite-date {
+    color: #a0aec0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .goal-collaboration-setup {
+    padding: 16px;
+  }
+
+  .goal-collaboration {
+    padding: 16px;
+  }
+
+  .collaboration-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .collaboration-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .leaderboard-btn,
+  .invite-btn {
+    flex: 1;
+  }
+
+  .collaboration-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .collaborator-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .collaborator-avatar {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  .pending-invite-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
