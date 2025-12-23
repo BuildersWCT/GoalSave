@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { NotificationProvider } from './contexts/NotificationContext'
+import { CollaborationProvider } from './contexts/CollaborationContext'
 import { ThemeToggle } from './components/ThemeToggle'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { NotificationBell } from './components/NotificationBell'
@@ -57,30 +58,32 @@ function App() {
   return (
     <ThemeProvider>
       <NotificationProvider>
-        <WagmiProvider config={wagmiAdapter.wagmiConfig}>
-          <QueryClientProvider client={queryClient}>
-            <div className="app">
-              <header>
-                <h1>{t('appTitle')}</h1>
-                <div className="header-controls">
-                  <NotificationBell />
-                  <LanguageSwitcher />
-                  <ThemeToggle />
-                  <appkit-button />
-                </div>
-              </header>
+        <CollaborationProvider>
+          <WagmiProvider config={wagmiAdapter.wagmiConfig}>
+            <QueryClientProvider client={queryClient}>
+              <div className="app">
+                <header>
+                  <h1>{t('appTitle')}</h1>
+                  <div className="header-controls">
+                    <NotificationBell />
+                    <LanguageSwitcher />
+                    <ThemeToggle />
+                    <appkit-button />
+                  </div>
+                </header>
 
-              <main>
-                <GoalForm onGoalCreated={handleGoalCreated} />
-                <GoalList key={refreshKey} />
-              </main>
+                <main>
+                  <GoalForm onGoalCreated={handleGoalCreated} />
+                  <GoalList key={refreshKey} />
+                </main>
 
-              <footer>
-                <p>{t('footerText')}</p>
-              </footer>
-            </div>
-          </QueryClientProvider>
-        </WagmiProvider>
+                <footer>
+                  <p>{t('footerText')}</p>
+                </footer>
+              </div>
+            </QueryClientProvider>
+          </WagmiProvider>
+        </CollaborationProvider>
       </NotificationProvider>
     </ThemeProvider>
   )

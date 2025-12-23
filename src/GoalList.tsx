@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useReadContract } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 import { CurrencyDisplay } from './components/CurrencyDisplay'
+import { GoalCollaboration } from './components/GoalCollaboration'
 import { useMilestoneDetection } from './hooks/useMilestoneDetection'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
@@ -67,6 +68,11 @@ export function GoalList() {
                 <p>{t('token')}: {tokenCurrency}</p>
                 <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
               </div>
+
+              <GoalCollaboration
+                goalId={goal.id.toString()}
+                goalName={goal.name}
+              />
             </div>
           )
         })
