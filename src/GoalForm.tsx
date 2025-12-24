@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
+import { useNotifications } from './contexts/NotificationContext'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -11,38 +12,72 @@ interface GoalFormProps {
 
 export function GoalForm({ onGoalCreated }: GoalFormProps) {
   const { t } = useTranslation()
+  const { addNotification } = useNotifications()
   const [name, setName] = useState('')
   const [token, setToken] = useState('0x0000000000000000000000000000000000000000') // CELO
   const [target, setTarget] = useState('')
   const [lockUntil, setLockUntil] = useState('')
 
-  const { writeContract, data: hash, isPending } = useWriteContract()
+  const { writeContract, data: hash, error: writeError, isPending } = useWriteContract()
 
-  const { isLoading: isConfirming } = useWaitForTransactionReceipt({
+  const { isLoading: isConfirming, error: confirmError } = useWaitForTransactionReceipt({
     hash,
   })
+
+  // Handle write contract errors
+  React.useEffect(() => {
+    if (writeError) {
+      console.error('Failed to create goal:', writeError)
+      addNotification({
+        type: 'warning',
+        title: t('goalCreationFailed'),
+        message: writeError.message || t('unknownError'),
+      })
+    }
+  }, [writeError, addNotification, t])
+
+  // Handle transaction confirmation errors
+  React.useEffect(() => {
+    if (confirmError) {
+      console.error('Transaction confirmation failed:', confirmError)
+      addNotification({
+        type: 'warning',
+        title: t('transactionFailed'),
+        message: confirmError.message || t('transactionConfirmationError'),
+      })
+    }
+  }, [confirmError, addNotification, t])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!name || !target) return
 
-    writeContract({
-      address: CONTRACT_ADDRESS,
-      abi: CeloSaveABI,
-      functionName: 'createGoal',
-      args: [name, token as `0x${string}`, BigInt(target), BigInt(lockUntil || '0')],
-    })
+    try {
+      writeContract({
+        address: CONTRACT_ADDRESS,
+        abi: CeloSaveABI,
+        functionName: 'createGoal',
+        args: [name, token as `0x${string}`, BigInt(target), BigInt(lockUntil || '0')],
+      })
+    } catch (error) {
+      console.error('Error initiating goal creation:', error)
+      addNotification({
+        type: 'warning',
+        title: t('goalCreationFailed'),
+        message: error instanceof Error ? error.message : t('unknownError'),
+      })
+    }
   }
 
   // Reset form when transaction is confirmed
   React.useEffect(() => {
-    if (hash && !isConfirming) {
+    if (hash && !isConfirming && !confirmError) {
       onGoalCreated()
       setName('')
       setTarget('')
       setLockUntil('')
     }
-  }, [hash, isConfirming, onGoalCreated])
+  }, [hash, isConfirming, confirmError, onGoalCreated])
 
   return (
     <div className="goal-form">
