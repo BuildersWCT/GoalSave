@@ -1,33 +1,12 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { useReadContract } from 'wagmi'
-import { CeloSaveABI } from './CeloSaveABI'
-import { CurrencyDisplay } from './components/CurrencyDisplay'
-import { GoalCollaboration } from './components/GoalCollaboration'
-import { useMilestoneDetection } from './hooks/useMilestoneDetection'
-import { useNotifications } from './contexts/NotificationContext'
-
-const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
-
-interface Goal {
-  id: bigint
-  name: string
-  token: string
-  target: bigint
-  balance: bigint
-  createdAt: bigint
-  lockUntil: bigint
-  closed: boolean
-}
-
 export function GoalList() {
   const { t } = useTranslation()
   const { addNotification } = useNotifications()
-  const { data: goals, isLoading, error } = useReadContract({
+  const [retryCount, setRetryCount] = React.useState(0)
+  const { data: goals, isLoading, error, refetch } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: CeloSaveABI,
     functionName: 'getMyGoals',
-  }) as { data: Goal[] | undefined; isLoading: boolean; error: Error | null }
+  }) as { data: Goal[] | undefined; isLoading: boolean; error: Error | null; refetch: () => void }
 
   // Handle read contract errors
   React.useEffect(() => {
@@ -41,12 +20,25 @@ export function GoalList() {
     }
   }, [error, addNotification, t])
 
+  const handleRetry = () => {
+    setRetryCount(prev => prev + 1)
+    refetch()
+  }
+
   // Initialize milestone detection
   useMilestoneDetection({ goals, isLoading })
 
   if (isLoading) return <div className="goal-list"><p>{t('loading')}</p></div>
 
-  if (error) return <div className="goal-list"><p>{t('errorLoadingGoals')}</p></div>
+  if (error) return (
+    <div className="goal-list">
+      <p>{t('errorLoadingGoals')}</p>
+      <button onClick={handleRetry} disabled={isLoading}>
+        {t('retry')}
+      </button>
+      {retryCount > 0 && <p>{t('retryAttempts')}: {retryCount}</p>}
+    </div>
+  )
 
   return (
     <div className="goal-list">
