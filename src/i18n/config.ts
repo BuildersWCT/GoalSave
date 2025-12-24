@@ -707,6 +707,94 @@ const resources = {
       expired: 'Scaduto',
       goals: 'obiettivi'
     }
+  },
+  ru: {
+    translation: {
+      // Header
+      appTitle: 'GoalSave - Целевой Сбережения',
+
+      // Goal Form
+      createGoal: 'Создать Новую Цель',
+      goalName: 'Название Цели',
+      goalNamePlaceholder: 'напр., Фонд Экстренных Случаев',
+      tokenAddress: 'Адрес Токена',
+      tokenAddressPlaceholder: 'Адрес контракта токена',
+      targetAmount: 'Целевая Сумма',
+      targetAmountPlaceholder: '1000',
+      lockUntil: 'Заблокировать До',
+      lockUntilPlaceholder: 'ГГГГ-ММ-ДД',
+      createButton: 'Создать Цель',
+      creating: 'Создание...',
+      waiting: 'Ожидание...',
+
+      // Goal List
+      yourGoals: 'Ваши Цели',
+      noGoals: 'Целей пока нет. Создайте свою первую цель!',
+      loading: 'Загрузка целей...',
+      target: 'Цель',
+      balance: 'Баланс',
+      token: 'Токен',
+      status: 'Статус',
+
+      // Footer
+      footerText: 'Создано с Vite + React + WalletConnect на Celo',
+
+      // Errors
+      connectWallet: 'Пожалуйста, сначала подключите свой кошелек',
+      errorCreatingGoal: 'Ошибка при создании цели',
+      errorLoadingGoals: 'Ошибка при загрузке целей',
+
+      // Theme
+      switchToLight: 'Переключить на светлый режим',
+      switchToDark: 'Переключить на тёмный режим',
+
+      // Language
+      language: 'Язык',
+      english: 'Английский',
+      spanish: 'Испанский',
+      french: 'Французский',
+      german: 'Немецкий',
+      chinese: 'Китайский',
+      japanese: 'Японский',
+      portuguese: 'Португальский',
+      italian: 'Итальянский',
+      russian: 'Русский',
+
+      // Notifications
+      notifications: 'Уведомления',
+      noNotifications: 'Уведомлений пока нет',
+      unread: 'не прочитано',
+      clearAll: 'Очистить всё',
+      removeNotification: 'Удалить уведомление',
+
+      // Collaboration
+      makeGoalCollaborative: 'Сделать Цель Совместной',
+      collaborationDescription: 'Разрешить нескольким пользователям вносить вклад в эту цель и отслеживать индивидуальные вклады.',
+      enableCollaboration: 'Включить Сотрудничество',
+      goalCollaboration: 'Сотрудничество по Цели',
+      inviteCollaborator: 'Пригласить Сотрудника',
+      collaboratorAddress: 'Адрес Сотрудника',
+      inviteMessage: 'Сообщение Приглашения',
+      inviteMessagePlaceholder: 'Добавьте личное сообщение к вашему приглашению...',
+      sending: 'Отправка...',
+      sendInvite: 'Отправить Приглашение',
+      optional: 'необязательно',
+      contributorLeaderboard: 'Таблица Лидеров Вкладчиков',
+      noContributorsYet: 'Вкладчиков пока нет',
+      totalContributors: 'Всего Вкладчиков',
+      totalContributions: 'Всего Вкладов',
+      pendingInvites: 'Ожидающие Приглашения',
+      collaborators: 'Сотрудники',
+      noCollaboratorsYet: 'Сотрудников пока нет',
+      contributions: 'Вклады',
+      owner: 'Владелец',
+      contributor: 'Вкладчик',
+      pending: 'Ожидает',
+      accepted: 'Принято',
+      declined: 'Отклонено',
+      expired: 'Истекло',
+      goals: 'цели'
+    }
   }
 }
 
