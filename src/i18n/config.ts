@@ -50,6 +50,11 @@ const resources = {
       spanish: 'Spanish',
       french: 'French',
       german: 'German',
+      chinese: 'Chinese',
+      japanese: 'Japanese',
+      portuguese: 'Portuguese',
+      italian: 'Italian',
+      russian: 'Russian',
 
       // Notifications
       notifications: 'Notifications',
@@ -133,6 +138,11 @@ const resources = {
       spanish: 'Español',
       french: 'Francés',
       german: 'Alemán',
+      chinese: 'Chino',
+      japanese: 'Japonés',
+      portuguese: 'Portugués',
+      italian: 'Italiano',
+      russian: 'Ruso',
 
       // Notifications
       notifications: 'Notificaciones',
@@ -216,6 +226,11 @@ const resources = {
       spanish: 'Espagnol',
       french: 'Français',
       german: 'Allemand',
+      chinese: 'Chinois',
+      japanese: 'Japonais',
+      portuguese: 'Portugais',
+      italian: 'Italien',
+      russian: 'Russe',
 
       // Notifications
       notifications: 'Notifications',
@@ -299,6 +314,11 @@ const resources = {
       spanish: 'Spanisch',
       french: 'Französisch',
       german: 'Deutsch',
+      chinese: 'Chinesisch',
+      japanese: 'Japanisch',
+      portuguese: 'Portugiesisch',
+      italian: 'Italienisch',
+      russian: 'Russisch',
 
       // Notifications
       notifications: 'Benachrichtigungen',
