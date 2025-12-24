@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 import { useNotifications } from './contexts/NotificationContext'
+import { errorLogger } from './utils/errorLogger'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -27,7 +28,7 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
   // Handle write contract errors
   React.useEffect(() => {
     if (writeError) {
-      console.error('Failed to create goal:', writeError)
+      errorLogger.logError(writeError, 'GoalForm.writeContract')
       addNotification({
         type: 'warning',
         title: t('goalCreationFailed'),
@@ -39,7 +40,7 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
   // Handle transaction confirmation errors
   React.useEffect(() => {
     if (confirmError) {
-      console.error('Transaction confirmation failed:', confirmError)
+      errorLogger.logError(confirmError, 'GoalForm.transactionReceipt')
       addNotification({
         type: 'warning',
         title: t('transactionFailed'),
@@ -60,7 +61,7 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
         args: [name, token as `0x${string}`, BigInt(target), BigInt(lockUntil || '0')],
       })
     } catch (error) {
-      console.error('Error initiating goal creation:', error)
+      errorLogger.logError(error as Error, 'GoalForm.handleSubmit')
       addNotification({
         type: 'warning',
         title: t('goalCreationFailed'),
