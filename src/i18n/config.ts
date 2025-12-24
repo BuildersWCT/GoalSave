@@ -56,7 +56,35 @@ const resources = {
       noNotifications: 'No notifications yet',
       unread: 'unread',
       clearAll: 'Clear all',
-      removeNotification: 'Remove notification'
+      removeNotification: 'Remove notification',
+
+      // Collaboration
+      makeGoalCollaborative: 'Make Goal Collaborative',
+      collaborationDescription: 'Allow multiple users to contribute to this goal and track individual contributions.',
+      enableCollaboration: 'Enable Collaboration',
+      goalCollaboration: 'Goal Collaboration',
+      inviteCollaborator: 'Invite Collaborator',
+      collaboratorAddress: 'Collaborator Address',
+      inviteMessage: 'Invite Message',
+      inviteMessagePlaceholder: 'Add a personal message to your invitation...',
+      sending: 'Sending...',
+      sendInvite: 'Send Invite',
+      optional: 'optional',
+      contributorLeaderboard: 'Contributor Leaderboard',
+      noContributorsYet: 'No contributors yet',
+      totalContributors: 'Total Contributors',
+      totalContributions: 'Total Contributions',
+      pendingInvites: 'Pending Invites',
+      collaborators: 'Collaborators',
+      noCollaboratorsYet: 'No collaborators yet',
+      contributions: 'Contributions',
+      owner: 'Owner',
+      contributor: 'Contributor',
+      pending: 'Pending',
+      accepted: 'Accepted',
+      declined: 'Declined',
+      expired: 'Expired',
+      goals: 'goals'
     }
   },
   es: {
@@ -111,7 +139,35 @@ const resources = {
       noNotifications: 'Aún no hay notificaciones',
       unread: 'no leído',
       clearAll: 'Limpiar todo',
-      removeNotification: 'Eliminar notificación'
+      removeNotification: 'Eliminar notificación',
+
+      // Collaboration
+      makeGoalCollaborative: 'Hacer Objetivo Colaborativo',
+      collaborationDescription: 'Permitir que múltiples usuarios contribuyan a este objetivo y rastreen contribuciones individuales.',
+      enableCollaboration: 'Habilitar Colaboración',
+      goalCollaboration: 'Colaboración de Objetivo',
+      inviteCollaborator: 'Invitar Colaborador',
+      collaboratorAddress: 'Dirección del Colaborador',
+      inviteMessage: 'Mensaje de Invitación',
+      inviteMessagePlaceholder: 'Agrega un mensaje personal a tu invitación...',
+      sending: 'Enviando...',
+      sendInvite: 'Enviar Invitación',
+      optional: 'opcional',
+      contributorLeaderboard: 'Tabla de Colaboradores',
+      noContributorsYet: 'Aún no hay colaboradores',
+      totalContributors: 'Total de Colaboradores',
+      totalContributions: 'Total de Contribuciones',
+      pendingInvites: 'Invitaciones Pendientes',
+      collaborators: 'Colaboradores',
+      noCollaboratorsYet: 'Aún no hay colaboradores',
+      contributions: 'Contribuciones',
+      owner: 'Propietario',
+      contributor: 'Colaborador',
+      pending: 'Pendiente',
+      accepted: 'Aceptado',
+      declined: 'Rechazado',
+      expired: 'Expirado',
+      goals: 'objetivos'
     }
   },
   fr: {
@@ -166,7 +222,35 @@ const resources = {
       noNotifications: 'Pas encore de notifications',
       unread: 'non lu',
       clearAll: 'Tout effacer',
-      removeNotification: 'Supprimer la notification'
+      removeNotification: 'Supprimer la notification',
+
+      // Collaboration
+      makeGoalCollaborative: 'Rendre l\'Objectif Collaboratif',
+      collaborationDescription: 'Permettre à plusieurs utilisateurs de contribuer à cet objectif et de suivre les contributions individuelles.',
+      enableCollaboration: 'Activer la Collaboration',
+      goalCollaboration: 'Collaboration d\'Objectif',
+      inviteCollaborator: 'Inviter un Collaborateur',
+      collaboratorAddress: 'Adresse du Collaborateur',
+      inviteMessage: 'Message d\'Invitation',
+      inviteMessagePlaceholder: 'Ajoutez un message personnel à votre invitation...',
+      sending: 'Envoi...',
+      sendInvite: 'Envoyer l\'Invitation',
+      optional: 'optionnel',
+      contributorLeaderboard: 'Classement des Contributeurs',
+      noContributorsYet: 'Pas encore de contributeurs',
+      totalContributors: 'Total des Contributeurs',
+      totalContributions: 'Total des Contributions',
+      pendingInvites: 'Invitations en Attente',
+      collaborators: 'Collaborateurs',
+      noCollaboratorsYet: 'Pas encore de collaborateurs',
+      contributions: 'Contributions',
+      owner: 'Propriétaire',
+      contributor: 'Contributeur',
+      pending: 'En attente',
+      accepted: 'Accepté',
+      declined: 'Refusé',
+      expired: 'Expiré',
+      goals: 'objectifs'
     }
   },
   de: {
@@ -221,7 +305,35 @@ const resources = {
       noNotifications: 'Noch keine Benachrichtigungen',
       unread: 'ungelesen',
       clearAll: 'Alles löschen',
-      removeNotification: 'Benachrichtigung entfernen'
+      removeNotification: 'Benachrichtigung entfernen',
+
+      // Collaboration
+      makeGoalCollaborative: 'Ziel Kollaborativ Machen',
+      collaborationDescription: 'Mehreren Benutzern erlauben, zu diesem Ziel beizutragen und individuelle Beiträge zu verfolgen.',
+      enableCollaboration: 'Kollaboration Aktivieren',
+      goalCollaboration: 'Ziel-Kollaboration',
+      inviteCollaborator: 'Mitarbeiter Einladen',
+      collaboratorAddress: 'Mitarbeiter-Adresse',
+      inviteMessage: 'Einladungsnachricht',
+      inviteMessagePlaceholder: 'Fügen Sie Ihrer Einladung eine persönliche Nachricht hinzu...',
+      sending: 'Senden...',
+      sendInvite: 'Einladung Senden',
+      optional: 'optional',
+      contributorLeaderboard: 'Beitrags-Rangliste',
+      noContributorsYet: 'Noch keine Beitragenden',
+      totalContributors: 'Gesamtanzahl Beitragender',
+      totalContributions: 'Gesamtbeiträge',
+      pendingInvites: 'Ausstehende Einladungen',
+      collaborators: 'Mitarbeiter',
+      noCollaboratorsYet: 'Noch keine Mitarbeiter',
+      contributions: 'Beiträge',
+      owner: 'Eigentümer',
+      contributor: 'Beitragender',
+      pending: 'Ausstehend',
+      accepted: 'Akzeptiert',
+      declined: 'Abgelehnt',
+      expired: 'Abgelaufen',
+      goals: 'Ziele'
     }
   }
 }

@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useEffect, ReactNode } from 'react'
+import { useAccount } from 'wagmi'
 import { GoalCollaboration, Collaborator, CollaborationInvite, Contribution, CollaborationSettings, LeaderboardEntry } from '../types/collaboration'
 
 interface CollaborationContextType {
@@ -142,6 +143,8 @@ export function CollaborationProvider({ children }: CollaborationProviderProps) 
     leaderboard: []
   })
 
+  const { address } = useAccount()
+
   // Load collaborations from localStorage on mount
   useEffect(() => {
     const savedCollaborations = localStorage.getItem('goalsave-collaborations')
@@ -173,7 +176,7 @@ export function CollaborationProvider({ children }: CollaborationProviderProps) 
     const invite: CollaborationInvite = {
       id: `invite_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       goalId,
-      inviterAddress: 'current-user-address', // This would come from wallet context
+      inviterAddress: address || 'current-user-address',
       inviteeAddress,
       status: 'pending',
       createdAt: Date.now(),
