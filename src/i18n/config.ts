@@ -531,6 +531,94 @@ const resources = {
       expired: '期限切れ',
       goals: '目標'
     }
+  },
+  pt: {
+    translation: {
+      // Header
+      appTitle: 'GoalSave - Poupança Baseada em Metas',
+
+      // Goal Form
+      createGoal: 'Criar Nova Meta',
+      goalName: 'Nome da Meta',
+      goalNamePlaceholder: 'ex., Fundo de Emergência',
+      tokenAddress: 'Endereço do Token',
+      tokenAddressPlaceholder: 'Endereço do contrato do token',
+      targetAmount: 'Valor Alvo',
+      targetAmountPlaceholder: '1000',
+      lockUntil: 'Bloquear Até',
+      lockUntilPlaceholder: 'AAAA-MM-DD',
+      createButton: 'Criar Meta',
+      creating: 'Criando...',
+      waiting: 'Aguardando...',
+
+      // Goal List
+      yourGoals: 'Suas Metas',
+      noGoals: 'Nenhuma meta ainda. Crie sua primeira meta!',
+      loading: 'Carregando metas...',
+      target: 'Alvo',
+      balance: 'Saldo',
+      token: 'Token',
+      status: 'Status',
+
+      // Footer
+      footerText: 'Construído com Vite + React + WalletConnect no Celo',
+
+      // Errors
+      connectWallet: 'Por favor, conecte sua carteira primeiro',
+      errorCreatingGoal: 'Erro ao criar meta',
+      errorLoadingGoals: 'Erro ao carregar metas',
+
+      // Theme
+      switchToLight: 'Mudar para modo claro',
+      switchToDark: 'Mudar para modo escuro',
+
+      // Language
+      language: 'Idioma',
+      english: 'Inglês',
+      spanish: 'Espanhol',
+      french: 'Francês',
+      german: 'Alemão',
+      chinese: 'Chinês',
+      japanese: 'Japonês',
+      portuguese: 'Português',
+      italian: 'Italiano',
+      russian: 'Russo',
+
+      // Notifications
+      notifications: 'Notificações',
+      noNotifications: 'Nenhuma notificação ainda',
+      unread: 'não lida',
+      clearAll: 'Limpar tudo',
+      removeNotification: 'Remover notificação',
+
+      // Collaboration
+      makeGoalCollaborative: 'Tornar Meta Colaborativa',
+      collaborationDescription: 'Permitir que múltiplos usuários contribuam para esta meta e rastreiem contribuições individuais.',
+      enableCollaboration: 'Habilitar Colaboração',
+      goalCollaboration: 'Colaboração de Meta',
+      inviteCollaborator: 'Convidar Colaborador',
+      collaboratorAddress: 'Endereço do Colaborador',
+      inviteMessage: 'Mensagem de Convite',
+      inviteMessagePlaceholder: 'Adicione uma mensagem pessoal ao seu convite...',
+      sending: 'Enviando...',
+      sendInvite: 'Enviar Convite',
+      optional: 'opcional',
+      contributorLeaderboard: 'Ranking de Colaboradores',
+      noContributorsYet: 'Nenhum colaborador ainda',
+      totalContributors: 'Total de Colaboradores',
+      totalContributions: 'Total de Contribuições',
+      pendingInvites: 'Convites Pendentes',
+      collaborators: 'Colaboradores',
+      noCollaboratorsYet: 'Nenhum colaborador ainda',
+      contributions: 'Contribuições',
+      owner: 'Proprietário',
+      contributor: 'Colaborador',
+      pending: 'Pendente',
+      accepted: 'Aceito',
+      declined: 'Recusado',
+      expired: 'Expirado',
+      goals: 'metas'
+    }
   }
 }
 
