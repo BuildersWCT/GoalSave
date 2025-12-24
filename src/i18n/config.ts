@@ -335,6 +335,94 @@ const resources = {
       expired: 'Abgelaufen',
       goals: 'Ziele'
     }
+  },
+  zh: {
+    translation: {
+      // Header
+      appTitle: 'GoalSave - 目标导向储蓄',
+
+      // Goal Form
+      createGoal: '创建新目标',
+      goalName: '目标名称',
+      goalNamePlaceholder: '例如，应急基金',
+      tokenAddress: '代币地址',
+      tokenAddressPlaceholder: '代币合约地址',
+      targetAmount: '目标金额',
+      targetAmountPlaceholder: '1000',
+      lockUntil: '锁定至日期',
+      lockUntilPlaceholder: 'YYYY-MM-DD',
+      createButton: '创建目标',
+      creating: '创建中...',
+      waiting: '等待中...',
+
+      // Goal List
+      yourGoals: '您的目标',
+      noGoals: '还没有目标。创建您的第一个目标！',
+      loading: '加载目标中...',
+      target: '目标',
+      balance: '余额',
+      token: '代币',
+      status: '状态',
+
+      // Footer
+      footerText: '使用 Vite + React + WalletConnect 在 Celo 上构建',
+
+      // Errors
+      connectWallet: '请先连接您的钱包',
+      errorCreatingGoal: '创建目标时出错',
+      errorLoadingGoals: '加载目标时出错',
+
+      // Theme
+      switchToLight: '切换到浅色模式',
+      switchToDark: '切换到深色模式',
+
+      // Language
+      language: '语言',
+      english: '英语',
+      spanish: '西班牙语',
+      french: '法语',
+      german: '德语',
+      chinese: '中文',
+      japanese: '日语',
+      portuguese: '葡萄牙语',
+      italian: '意大利语',
+      russian: '俄语',
+
+      // Notifications
+      notifications: '通知',
+      noNotifications: '还没有通知',
+      unread: '未读',
+      clearAll: '清除全部',
+      removeNotification: '删除通知',
+
+      // Collaboration
+      makeGoalCollaborative: '使目标协作化',
+      collaborationDescription: '允许多个用户为此目标贡献并跟踪个人贡献。',
+      enableCollaboration: '启用协作',
+      goalCollaboration: '目标协作',
+      inviteCollaborator: '邀请协作者',
+      collaboratorAddress: '协作者地址',
+      inviteMessage: '邀请消息',
+      inviteMessagePlaceholder: '为您的邀请添加个人消息...',
+      sending: '发送中...',
+      sendInvite: '发送邀请',
+      optional: '可选',
+      contributorLeaderboard: '贡献者排行榜',
+      noContributorsYet: '还没有贡献者',
+      totalContributors: '总贡献者',
+      totalContributions: '总贡献',
+      pendingInvites: '待处理邀请',
+      collaborators: '协作者',
+      noCollaboratorsYet: '还没有协作者',
+      contributions: '贡献',
+      owner: '所有者',
+      contributor: '贡献者',
+      pending: '待处理',
+      accepted: '已接受',
+      declined: '已拒绝',
+      expired: '已过期',
+      goals: '目标'
+    }
   }
 }
 
