@@ -1,3 +1,26 @@
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useReadContract } from 'wagmi'
+import { CeloSaveABI } from './CeloSaveABI'
+import { CurrencyDisplay } from './components/CurrencyDisplay'
+import { GoalCollaboration } from './components/GoalCollaboration'
+import { useMilestoneDetection } from './hooks/useMilestoneDetection'
+import { useNotifications } from './contexts/NotificationContext'
+import { errorLogger } from './utils/errorLogger'
+
+const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
+
+interface Goal {
+  id: bigint
+  name: string
+  token: string
+  target: bigint
+  balance: bigint
+  createdAt: bigint
+  lockUntil: bigint
+  closed: boolean
+}
+
 export function GoalList() {
   const { t } = useTranslation()
   const { addNotification } = useNotifications()
@@ -11,7 +34,7 @@ export function GoalList() {
   // Handle read contract errors
   React.useEffect(() => {
     if (error) {
-      console.error('Failed to load goals:', error)
+      errorLogger.logError(error, 'GoalList.readContract')
       addNotification({
         type: 'warning',
         title: t('failedToLoadGoals'),
