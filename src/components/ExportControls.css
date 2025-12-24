@@ -1,0 +1,324 @@
+/* Export Controls Component Styles */
+.export-controls {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.export-controls:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.export-controls__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.export-controls__header h3 {
+  margin: 0;
+  color: var(--text-color, #1f2937);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.export-controls__toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--text-color, #6b7280);
+  transition: background-color 0.2s ease;
+}
+
+.export-controls__toggle:hover {
+  background-color: var(--hover-color, #f3f4f6);
+}
+
+.export-controls__options {
+  background: var(--background-color, #f9fafb);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.export-option {
+  margin-bottom: 0.75rem;
+}
+
+.export-option:last-child {
+  margin-bottom: 0;
+}
+
+.export-option label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-color, #374151);
+}
+
+.export-option input[type="checkbox"] {
+  margin-right: 0.5rem;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color, #3b82f6);
+}
+
+.export-controls__stats {
+  margin-bottom: 1.5rem;
+}
+
+.export-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--background-color, #f9fafb);
+  border-radius: 6px;
+  border: 1px solid var(--border-color, #e5e7eb);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color, #1f2937);
+}
+
+.export-controls__chart {
+  margin-bottom: 1.5rem;
+}
+
+.export-controls__chart h4 {
+  margin: 0 0 1rem 0;
+  color: var(--text-color, #1f2937);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.chart-container {
+  padding: 1rem;
+  background: var(--background-color, #f9fafb);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 6px;
+}
+
+.progress-bar-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  color: var(--text-color, #374151);
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 16px;
+  background-color: var(--border-color, #e5e7eb);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+  min-width: 2px;
+}
+
+.progress-value {
+  font-size: 0.75rem;
+  color: var(--text-color, #374151);
+  min-width: 35px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.more-goals {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary, #6b7280);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.export-controls__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.export-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+}
+
+.export-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.export-btn--csv {
+  background: var(--success-color, #10b981);
+  color: white;
+}
+
+.export-btn--csv:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.export-btn--pdf {
+  background: var(--danger-color, #ef4444);
+  color: white;
+}
+
+.export-btn--pdf:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .export-controls {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .export-controls__header h3 {
+    font-size: 1.125rem;
+  }
+
+  .export-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
+  }
+
+  .stat-value {
+    font-size: 1.125rem;
+  }
+
+  .chart-container {
+    height: 250px;
+    padding: 0.75rem;
+  }
+
+  .export-controls__actions {
+    flex-direction: column;
+  }
+
+  .export-btn {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .export-stats {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .chart-container {
+    height: 200px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .export-controls {
+    background: var(--surface-color, #1f2937);
+    border-color: var(--border-color, #374151);
+  }
+
+  .export-controls__header h3,
+  .export-controls__chart h4,
+  .stat-value {
+    color: var(--text-color, #f9fafb);
+  }
+
+  .export-controls__header,
+  .export-option label,
+  .stat-label {
+    color: var(--text-secondary, #d1d5db);
+  }
+
+  .export-controls__options,
+  .chart-container,
+  .export-stats {
+    background: var(--background-color, #111827);
+    border-color: var(--border-color, #374151);
+  }
+
+  .export-controls__toggle:hover {
+    background-color: var(--hover-color, #374151);
+  }
+}
+
+/* Loading state */
+.export-btn:disabled {
+  cursor: wait;
+}
+
+.export-controls:has(.export-btn:disabled) {
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Focus states for accessibility */
+.export-btn:focus,
+.export-controls__toggle:focus {
+  outline: 2px solid var(--primary-color, #3b82f6);
+  outline-offset: 2px;
+}
+
+.export-option input:focus {
+  outline: 2px solid var(--primary-color, #3b82f6);
+  outline-offset: 1px;
+}
