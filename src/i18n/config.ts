@@ -443,6 +443,94 @@ const resources = {
       expired: '已过期',
       goals: '目标'
     }
+  },
+  ja: {
+    translation: {
+      // Header
+      appTitle: 'GoalSave - 目標ベースの貯蓄',
+
+      // Goal Form
+      createGoal: '新しい目標を作成',
+      goalName: '目標名',
+      goalNamePlaceholder: '例: 緊急資金',
+      tokenAddress: 'トークンアドレス',
+      tokenAddressPlaceholder: 'トークン契約アドレス',
+      targetAmount: '目標金額',
+      targetAmountPlaceholder: '1000',
+      lockUntil: 'ロック解除日',
+      lockUntilPlaceholder: 'YYYY-MM-DD',
+      createButton: '目標を作成',
+      creating: '作成中...',
+      waiting: '待機中...',
+
+      // Goal List
+      yourGoals: 'あなたの目標',
+      noGoals: 'まだ目標がありません。最初の目標を作成してください！',
+      loading: '目標を読み込み中...',
+      target: '目標',
+      balance: '残高',
+      token: 'トークン',
+      status: 'ステータス',
+
+      // Footer
+      footerText: 'Vite + React + WalletConnect を使用して Celo 上で構築',
+
+      // Errors
+      connectWallet: 'まずウォレットを接続してください',
+      errorCreatingGoal: '目標作成エラー',
+      errorLoadingGoals: '目標読み込みエラー',
+
+      // Theme
+      switchToLight: 'ライトモードに切り替え',
+      switchToDark: 'ダークモードに切り替え',
+
+      // Language
+      language: '言語',
+      english: '英語',
+      spanish: 'スペイン語',
+      french: 'フランス語',
+      german: 'ドイツ語',
+      chinese: '中国語',
+      japanese: '日本語',
+      portuguese: 'ポルトガル語',
+      italian: 'イタリア語',
+      russian: 'ロシア語',
+
+      // Notifications
+      notifications: '通知',
+      noNotifications: 'まだ通知がありません',
+      unread: '未読',
+      clearAll: 'すべてクリア',
+      removeNotification: '通知を削除',
+
+      // Collaboration
+      makeGoalCollaborative: '目標を協働化',
+      collaborationDescription: '複数のユーザーがこの目標に貢献し、個々の貢献を追跡できるようにします。',
+      enableCollaboration: '協働を有効化',
+      goalCollaboration: '目標協働',
+      inviteCollaborator: '協働者を招待',
+      collaboratorAddress: '協働者アドレス',
+      inviteMessage: '招待メッセージ',
+      inviteMessagePlaceholder: '招待に個人的なメッセージを追加...',
+      sending: '送信中...',
+      sendInvite: '招待を送信',
+      optional: 'オプション',
+      contributorLeaderboard: '貢献者ランキング',
+      noContributorsYet: 'まだ貢献者がいません',
+      totalContributors: '総貢献者',
+      totalContributions: '総貢献',
+      pendingInvites: '保留中の招待',
+      collaborators: '協働者',
+      noCollaboratorsYet: 'まだ協働者がいません',
+      contributions: '貢献',
+      owner: '所有者',
+      contributor: '貢献者',
+      pending: '保留中',
+      accepted: '承認済み',
+      declined: '拒否済み',
+      expired: '期限切れ',
+      goals: '目標'
+    }
   }
 }
 
