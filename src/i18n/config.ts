@@ -619,6 +619,94 @@ const resources = {
       expired: 'Expirado',
       goals: 'metas'
     }
+  },
+  it: {
+    translation: {
+      // Header
+      appTitle: 'GoalSave - Risparmio Basato su Obiettivi',
+
+      // Goal Form
+      createGoal: 'Crea Nuovo Obiettivo',
+      goalName: 'Nome Obiettivo',
+      goalNamePlaceholder: 'es., Fondo di Emergenza',
+      tokenAddress: 'Indirizzo Token',
+      tokenAddressPlaceholder: 'Indirizzo contratto token',
+      targetAmount: 'Importo Obiettivo',
+      targetAmountPlaceholder: '1000',
+      lockUntil: 'Blocca Fino a',
+      lockUntilPlaceholder: 'AAAA-MM-GG',
+      createButton: 'Crea Obiettivo',
+      creating: 'Creando...',
+      waiting: 'In Attesa...',
+
+      // Goal List
+      yourGoals: 'I Tuoi Obiettivi',
+      noGoals: 'Nessun obiettivo ancora. Crea il tuo primo obiettivo!',
+      loading: 'Caricamento obiettivi...',
+      target: 'Obiettivo',
+      balance: 'Saldo',
+      token: 'Token',
+      status: 'Stato',
+
+      // Footer
+      footerText: 'Costruito con Vite + React + WalletConnect su Celo',
+
+      // Errors
+      connectWallet: 'Per favore, collega prima il tuo portafoglio',
+      errorCreatingGoal: 'Errore nella creazione dell\'obiettivo',
+      errorLoadingGoals: 'Errore nel caricamento degli obiettivi',
+
+      // Theme
+      switchToLight: 'Passa alla modalità chiara',
+      switchToDark: 'Passa alla modalità scura',
+
+      // Language
+      language: 'Lingua',
+      english: 'Inglese',
+      spanish: 'Spagnolo',
+      french: 'Francese',
+      german: 'Tedesco',
+      chinese: 'Cinese',
+      japanese: 'Giapponese',
+      portuguese: 'Portoghese',
+      italian: 'Italiano',
+      russian: 'Russo',
+
+      // Notifications
+      notifications: 'Notifiche',
+      noNotifications: 'Nessuna notifica ancora',
+      unread: 'non letta',
+      clearAll: 'Cancella tutto',
+      removeNotification: 'Rimuovi notifica',
+
+      // Collaboration
+      makeGoalCollaborative: 'Rendi Obiettivo Collaborativo',
+      collaborationDescription: 'Permetti a più utenti di contribuire a questo obiettivo e traccia i contributi individuali.',
+      enableCollaboration: 'Abilita Collaborazione',
+      goalCollaboration: 'Collaborazione Obiettivo',
+      inviteCollaborator: 'Invita Collaboratore',
+      collaboratorAddress: 'Indirizzo Collaboratore',
+      inviteMessage: 'Messaggio di Invito',
+      inviteMessagePlaceholder: 'Aggiungi un messaggio personale al tuo invito...',
+      sending: 'Invio...',
+      sendInvite: 'Invia Invito',
+      optional: 'opzionale',
+      contributorLeaderboard: 'Classifica Collaboratori',
+      noContributorsYet: 'Nessun collaboratore ancora',
+      totalContributors: 'Totale Collaboratori',
+      totalContributions: 'Totale Contributi',
+      pendingInvites: 'Inviti in Attesa',
+      collaborators: 'Collaboratori',
+      noCollaboratorsYet: 'Nessun collaboratore ancora',
+      contributions: 'Contributi',
+      owner: 'Proprietario',
+      contributor: 'Collaboratore',
+      pending: 'In Attesa',
+      accepted: 'Accettato',
+      declined: 'Rifiutato',
+      expired: 'Scaduto',
+      goals: 'obiettivi'
+    }
   }
 }
 
