@@ -4,6 +4,7 @@ import { useReadContract } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 import { CurrencyDisplay } from './components/CurrencyDisplay'
 import { GoalCollaboration } from './components/GoalCollaboration'
+import { SavingsTips } from './components/SavingsTips'
 import { useMilestoneDetection } from './hooks/useMilestoneDetection'
 import { useNotifications } from './contexts/NotificationContext'
 import { errorLogger } from './utils/errorLogger'
@@ -109,6 +110,7 @@ export function GoalList() {
           )
         })
       )}
+      <SavingsTips goals={goals} isLoading={isLoading} />
     </div>
   )
 }
