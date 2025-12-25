@@ -45,6 +45,7 @@ contract CeloSave is
         uint256 createdAt;
         uint256 lockUntil;
         bool closed;
+        bool archived;
     }
 
     struct TimelockOperation {
@@ -73,6 +74,16 @@ contract CeloSave is
     );
 
     event GoalClosed(
+        address indexed user,
+        uint256 indexed goalId
+    );
+
+    event GoalArchived(
+        address indexed user,
+        uint256 indexed goalId
+    );
+
+    event GoalRestored(
         address indexed user,
         uint256 indexed goalId
     );
@@ -117,6 +128,8 @@ contract CeloSave is
     error OperationNotReady();
     error OperationAlreadyExecuted();
     error OperationNotScheduled();
+    error GoalAlreadyArchived();
+    error GoalNotArchived();
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -166,7 +179,8 @@ contract CeloSave is
             balance: 0,
             createdAt: block.timestamp,
             lockUntil: lockUntil,
-            closed: false
+            closed: false,
+            archived: false
         });
 
         goalCount[msg.sender]++;
@@ -188,6 +202,7 @@ contract CeloSave is
 
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (goal.token != address(0)) revert InvalidToken();
 
@@ -210,6 +225,7 @@ contract CeloSave is
 
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (goal.token == address(0)) revert InvalidToken();
 
@@ -233,6 +249,7 @@ contract CeloSave is
 
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (block.timestamp < goal.lockUntil) revert GoalStillLocked();
         if (goal.balance < amount) revert InsufficientBalance();
@@ -255,6 +272,7 @@ contract CeloSave is
     {
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (block.timestamp < goal.lockUntil) revert GoalStillLocked();
 
@@ -275,6 +293,7 @@ contract CeloSave is
     function closeGoal(uint256 goalId) external whenNotPaused {
         Goal storage goal = goals[msg.sender][goalId];
         if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
         if (goal.closed) revert GoalAlreadyClosed();
         if (block.timestamp < goal.lockUntil) revert GoalStillLocked();
 
@@ -289,6 +308,34 @@ contract CeloSave is
         goal.closed = true;
 
         emit GoalClosed(msg.sender, goalId);
+    }
+
+    /**
+     * @dev Archive a goal
+     * @param goalId ID of the goal
+     */
+    function archiveGoal(uint256 goalId) external whenNotPaused {
+        Goal storage goal = goals[msg.sender][goalId];
+        if (goal.createdAt == 0) revert GoalNotFound();
+        if (goal.archived) revert GoalAlreadyArchived();
+
+        goal.archived = true;
+
+        emit GoalArchived(msg.sender, goalId);
+    }
+
+    /**
+     * @dev Restore an archived goal
+     * @param goalId ID of the goal
+     */
+    function restoreGoal(uint256 goalId) external whenNotPaused {
+        Goal storage goal = goals[msg.sender][goalId];
+        if (goal.createdAt == 0) revert GoalNotFound();
+        if (!goal.archived) revert GoalNotArchived();
+
+        goal.archived = false;
+
+        emit GoalRestored(msg.sender, goalId);
     }
 
     /**
@@ -318,6 +365,7 @@ contract CeloSave is
      * @return createdAt The creation timestamp
      * @return lockUntil The lock until timestamp
      * @return closed Whether the goal is closed
+     * @return archived Whether the goal is archived
      */
     function getGoal(address user, uint256 goalId)
         external
@@ -330,7 +378,8 @@ contract CeloSave is
             uint256 balance,
             uint256 createdAt,
             uint256 lockUntil,
-            bool closed
+            bool closed,
+            bool archived
         )
     {
         Goal memory goal = goals[user][goalId];
@@ -342,7 +391,8 @@ contract CeloSave is
             goal.balance,
             goal.createdAt,
             goal.lockUntil,
-            goal.closed
+            goal.closed,
+            goal.archived
         );
     }
 
