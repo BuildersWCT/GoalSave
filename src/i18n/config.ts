@@ -63,6 +63,12 @@ const resources = {
       clearAll: 'Clear all',
       removeNotification: 'Remove notification',
 
+      // Savings Tips
+      savingsTips: 'Savings Tips',
+      save: 'Save',
+      saved: 'Saved',
+      dismiss: 'Dismiss',
+
       // Collaboration
       makeGoalCollaborative: 'Make Goal Collaborative',
       collaborationDescription: 'Allow multiple users to contribute to this goal and track individual contributions.',
