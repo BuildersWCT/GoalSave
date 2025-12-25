@@ -5,6 +5,7 @@ import { CeloSaveABI } from './CeloSaveABI'
 import { CurrencyDisplay } from './components/CurrencyDisplay'
 import { GoalCollaboration } from './components/GoalCollaboration'
 import { SavingsTips } from './components/SavingsTips'
+import { ProgressBar } from './components/ProgressBar'
 import { useMilestoneDetection } from './hooks/useMilestoneDetection'
 import { useNotifications } from './contexts/NotificationContext'
 import { errorLogger } from './utils/errorLogger'
@@ -78,6 +79,9 @@ export function GoalList() {
           const targetAmount = Number(goal.target) / 1e18
           const balanceAmount = Number(goal.balance) / 1e18
 
+          // Calculate progress percentage
+          const progressPercentage = targetAmount > 0 ? (balanceAmount / targetAmount) * 100 : 0
+
           return (
             <div key={goal.id.toString()} className="goal-item">
               <h4>{goal.name}</h4>
@@ -98,6 +102,7 @@ export function GoalList() {
                     className="balance-currency"
                   />
                 </div>
+                <ProgressBar percentage={progressPercentage} />
                 <p>{t('token')}: {tokenCurrency}</p>
                 <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
               </div>
