@@ -79,8 +79,8 @@ export function GoalList() {
           const targetAmount = Number(goal.target) / 1e18
           const balanceAmount = Number(goal.balance) / 1e18
 
-          // Calculate progress percentage
-          const progressPercentage = targetAmount > 0 ? (balanceAmount / targetAmount) * 100 : 0
+          // Calculate progress percentage (avoid division by zero)
+          const progressPercentage = targetAmount > 0 ? Math.min((balanceAmount / targetAmount) * 100, 100) : 0
 
           return (
             <div key={goal.id.toString()} className="goal-item">
