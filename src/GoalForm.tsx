@@ -35,9 +35,9 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
   const [validationState, setValidationState] = useState<FormValidationState>(createInitialFormValidation())
   const [isSubmitAttempted, setIsSubmitAttempted] = useState(false)
 
-  const { writeContract, data: hash, isPending } = useWriteContract()
+  const { writeContract, data: hash, error: writeError, isPending } = useWriteContract()
 
-  const { isLoading: isConfirming } = useWaitForTransactionReceipt({
+  const { isLoading: isConfirming, error: confirmError } = useWaitForTransactionReceipt({
     hash,
   })
 
@@ -109,17 +109,26 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
       return
     }
 
-    writeContract({
-      address: CONTRACT_ADDRESS,
-      abi: CeloSaveABI,
-      functionName: 'createGoal',
-      args: [name, token as `0x${string}`, BigInt(target), BigInt(lockUntil || '0')],
-    })
+    try {
+      writeContract({
+        address: CONTRACT_ADDRESS,
+        abi: CeloSaveABI,
+        functionName: 'createGoal',
+        args: [name, token as `0x${string}`, BigInt(target), BigInt(lockUntil || '0')],
+      })
+    } catch (error) {
+      errorLogger.logError(error as Error, 'GoalForm.handleSubmit')
+      addNotification({
+        type: 'warning',
+        title: t('goalCreationFailed'),
+        message: error instanceof Error ? error.message : t('unknownError'),
+      })
+    }
   }
 
   // Reset form when transaction is confirmed
   React.useEffect(() => {
-    if (hash && !isConfirming) {
+    if (hash && !isConfirming && !confirmError) {
       onGoalCreated()
       setName('')
       setTarget('')
@@ -127,7 +136,7 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
       setValidationState(createInitialFormValidation())
       setIsSubmitAttempted(false)
     }
-  }, [hash, isConfirming, onGoalCreated])
+  }, [hash, isConfirming, confirmError, onGoalCreated])
 
   // Get field validation state
   const getFieldState = useCallback((field: string) => {

@@ -36,7 +36,24 @@ export function GoalList({ onEditGoal }: GoalListProps) {
     address: CONTRACT_ADDRESS,
     abi: CeloSaveABI,
     functionName: 'getMyGoals',
-  }) as { data: Goal[] | undefined; isLoading: boolean }
+  }) as { data: Goal[] | undefined; isLoading: boolean; error: Error | null; refetch: () => void }
+
+  // Handle read contract errors
+  React.useEffect(() => {
+    if (error) {
+      errorLogger.logError(error, 'GoalList.readContract')
+      addNotification({
+        type: 'warning',
+        title: t('failedToLoadGoals'),
+        message: error.message || t('unknownError'),
+      })
+    }
+  }, [error, addNotification, t])
+
+  const handleRetry = () => {
+    setRetryCount(prev => prev + 1)
+    refetch()
+  }
 
   const { writeContract, data: hash, isPending } = useWriteContract()
 

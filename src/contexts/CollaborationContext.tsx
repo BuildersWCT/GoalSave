@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useEffect, ReactNode } from 'react'
 import { useAccount } from 'wagmi'
 import { GoalCollaboration, Collaborator, CollaborationInvite, Contribution, CollaborationSettings, LeaderboardEntry } from '../types/collaboration'
+import { errorLogger } from '../utils/errorLogger'
 
 interface CollaborationContextType {
   collaborations: Map<string, GoalCollaboration>
@@ -155,6 +156,7 @@ export function CollaborationProvider({ children }: CollaborationProviderProps) 
         dispatch({ type: 'LOAD_COLLABORATIONS', payload: collaborationsMap })
       } catch (error) {
         console.error('Failed to load collaborations from localStorage:', error)
+        errorLogger.logError(error as Error, 'CollaborationProvider.loadCollaborations')
       }
     }
   }, [])
@@ -173,45 +175,63 @@ export function CollaborationProvider({ children }: CollaborationProviderProps) 
   }
 
   const inviteCollaborator = async (goalId: string, inviteeAddress: string, message?: string): Promise<void> => {
-    const invite: CollaborationInvite = {
-      id: `invite_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      goalId,
-      inviterAddress: address || 'current-user-address',
-      inviteeAddress,
-      status: 'pending',
-      createdAt: Date.now(),
-      expiresAt: Date.now() + (7 * 24 * 60 * 60 * 1000), // 7 days
-      message
-    }
+    try {
+      const invite: CollaborationInvite = {
+        id: `invite_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        goalId,
+        inviterAddress: address || 'current-user-address',
+        inviteeAddress,
+        status: 'pending',
+        createdAt: Date.now(),
+        expiresAt: Date.now() + (7 * 24 * 60 * 60 * 1000), // 7 days
+        message
+      }
 
-    dispatch({ type: 'ADD_INVITE', payload: invite })
+      dispatch({ type: 'ADD_INVITE', payload: invite })
+    } catch (error) {
+      console.error('Failed to invite collaborator:', error)
+      errorLogger.logError(error as Error, 'CollaborationContext.inviteCollaborator')
+      throw error
+    }
   }
 
   const acceptInvite = async (inviteId: string): Promise<void> => {
-    dispatch({ type: 'UPDATE_INVITE', payload: { inviteId, status: 'accepted' } })
+    try {
+      dispatch({ type: 'UPDATE_INVITE', payload: { inviteId, status: 'accepted' } })
 
-    // Find the invite and add collaborator
-    const invite = Array.from(state.collaborations.values())
-      .flatMap(c => c.pendingInvites)
-      .find(i => i.id === inviteId)
+      // Find the invite and add collaborator
+      const invite = Array.from(state.collaborations.values())
+        .flatMap(c => c.pendingInvites)
+        .find(i => i.id === inviteId)
 
-    if (invite) {
-      const collaborator: Collaborator = {
-        id: `collab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        address: invite.inviteeAddress,
-        joinedAt: Date.now(),
-        role: 'contributor',
-        totalContributed: 0n,
-        contributionCount: 0,
-        lastContribution: 0
+      if (invite) {
+        const collaborator: Collaborator = {
+          id: `collab_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          address: invite.inviteeAddress,
+          joinedAt: Date.now(),
+          role: 'contributor',
+          totalContributed: 0n,
+          contributionCount: 0,
+          lastContribution: 0
+        }
+
+        dispatch({ type: 'ADD_COLLABORATOR', payload: { goalId: invite.goalId, collaborator } })
       }
-
-      dispatch({ type: 'ADD_COLLABORATOR', payload: { goalId: invite.goalId, collaborator } })
+    } catch (error) {
+      console.error('Failed to accept invite:', error)
+      errorLogger.logError(error as Error, 'CollaborationContext.acceptInvite')
+      throw error
     }
   }
 
   const declineInvite = async (inviteId: string): Promise<void> => {
-    dispatch({ type: 'UPDATE_INVITE', payload: { inviteId, status: 'declined' } })
+    try {
+      dispatch({ type: 'UPDATE_INVITE', payload: { inviteId, status: 'declined' } })
+    } catch (error) {
+      console.error('Failed to decline invite:', error)
+      errorLogger.logError(error as Error, 'CollaborationContext.declineInvite')
+      throw error
+    }
   }
 
   const addContribution = (
@@ -304,4 +324,12 @@ export function CollaborationProvider({ children }: CollaborationProviderProps) 
       {children}
     </CollaborationContext.Provider>
   )
+}
+
+export function useCollaboration() {
+  const context = useContext(CollaborationContext)
+  if (context === undefined) {
+    throw new Error('useCollaboration must be used within a CollaborationProvider')
+  }
+  return context
 }

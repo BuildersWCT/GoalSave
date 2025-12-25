@@ -5,7 +5,12 @@ const languages = [
   { code: 'en', name: 'english', flag: '🇬🇧' },
   { code: 'es', name: 'spanish', flag: '🇪🇸' },
   { code: 'fr', name: 'french', flag: '🇫🇷' },
-  { code: 'de', name: 'german', flag: '🇩🇪' }
+  { code: 'de', name: 'german', flag: '🇩🇪' },
+  { code: 'zh', name: 'chinese', flag: '🇨🇳' },
+  { code: 'ja', name: 'japanese', flag: '🇯🇵' },
+  { code: 'pt', name: 'portuguese', flag: '🇵🇹' },
+  { code: 'it', name: 'italian', flag: '🇮🇹' },
+  { code: 'ru', name: 'russian', flag: '🇷🇺' }
 ]
 
 export const LanguageSwitcher = () => {

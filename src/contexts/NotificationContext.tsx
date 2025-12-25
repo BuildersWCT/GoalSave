@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react'
 import { Notification, NotificationSettings } from '../types/notification'
+import { errorLogger } from '../utils/errorLogger'
 
 interface NotificationContextType {
   notifications: Notification[]
@@ -54,7 +55,7 @@ const notificationReducer = (state: { notifications: Notification[], settings: N
     case 'MARK_AS_READ':
       return {
         ...state,
-        notifications: state.notifications.map(n => 
+        notifications: state.notifications.map(n =>
           n.id === action.payload ? { ...n, read: true } : n
         )
       }
@@ -97,22 +98,24 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   useEffect(() => {
     const savedNotifications = localStorage.getItem('goalsave-notifications')
     const savedSettings = localStorage.getItem('goalsave-notification-settings')
-    
+
     if (savedNotifications) {
       try {
         const notifications = JSON.parse(savedNotifications)
         dispatch({ type: 'LOAD_NOTIFICATIONS', payload: notifications })
       } catch (error) {
         console.error('Failed to load notifications from localStorage:', error)
+        errorLogger.logError(error as Error, 'NotificationProvider.loadNotifications')
       }
     }
-    
+
     if (savedSettings) {
       try {
         const settings = JSON.parse(savedSettings)
         dispatch({ type: 'UPDATE_SETTINGS', payload: settings })
       } catch (error) {
         console.error('Failed to load notification settings from localStorage:', error)
+        errorLogger.logError(error as Error, 'NotificationProvider.loadSettings')
       }
     }
   }, [])
@@ -135,7 +138,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
       read: false
     }
     dispatch({ type: 'ADD_NOTIFICATION', payload: newNotification })
-    
+
     // Show browser notification if enabled and permission granted
     if (state.settings.browser.enabled && state.settings.browser.permission === 'granted') {
       showBrowserNotification(newNotification)
