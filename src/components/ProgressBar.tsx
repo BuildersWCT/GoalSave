@@ -10,7 +10,7 @@ export function ProgressBar({ percentage, className = '' }: ProgressBarProps) {
   const clampedPercentage = Math.min(Math.max(percentage, 0), 100)
 
   return (
-    <div className={`progress-bar ${className}`}>
+    <div className={`progress-bar ${className}`} role="progressbar" aria-valuenow={clampedPercentage} aria-valuemin={0} aria-valuemax={100}>
       <div
         className="progress-fill"
         style={{ width: `${clampedPercentage}%` }}
