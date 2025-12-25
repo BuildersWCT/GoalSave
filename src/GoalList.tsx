@@ -191,6 +191,7 @@ export function GoalList({ onEditGoal }: GoalListProps) {
           </div>
         ))
       )}
+      <SavingsTips goals={goals} isLoading={isLoading} />
     </div>
   )
 }

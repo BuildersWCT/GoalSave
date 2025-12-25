@@ -1,0 +1,97 @@
+.savings-tips {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.savings-tips h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.tip-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.tip-high {
+  border-left: 4px solid #ff6b6b;
+}
+
+.tip-medium {
+  border-left: 4px solid #ffd93d;
+}
+
+.tip-low {
+  border-left: 4px solid #6bcf7f;
+}
+
+.tip-content {
+  flex: 1;
+}
+
+.tip-content h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.tip-content p {
+  margin: 0 0 8px 0;
+  color: #666;
+}
+
+.tip-category {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: #666;
+  text-transform: capitalize;
+}
+
+.tip-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.btn-save, .btn-dismiss {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.btn-save {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-save:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.btn-save:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.btn-dismiss {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-dismiss:hover {
+  background-color: #da190b;
+}
