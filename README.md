@@ -1,6 +1,18 @@
-# React + TypeScript + Vite
+# GoalSave - Savings Goal Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based application for managing savings goals with blockchain integration, built with TypeScript and Vite.
+
+## Features
+
+- **Goal Progress Visualization**: Visual progress bars showing savings goal completion percentage with smooth animations
+- **Multi-currency Support**: Support for various currencies with real-time conversion
+- **Blockchain Integration**: Smart contract integration for secure goal management
+- **Collaborative Goals**: Share and contribute to savings goals with friends
+- **Notifications**: Milestone-based notifications for goal progress
+- **Internationalization**: Multi-language support
+- **Theme Support**: Light and dark mode themes
+
+This project is built with React, TypeScript, and Vite for fast development and optimal performance.
 
 Currently, two official plugins are available:
 
