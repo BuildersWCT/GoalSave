@@ -59,6 +59,13 @@ main {
   background: var(--button-bg);
   color: var(--text-color);
   transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.goal-form input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
 }
 
 .goal-form input:focus {
@@ -90,9 +97,15 @@ main {
   background: var(--button-bg);
   padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.goal-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .goal-item h4 {
