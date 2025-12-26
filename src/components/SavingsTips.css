@@ -95,3 +95,31 @@
 .btn-dismiss:hover {
   background-color: #da190b;
 }
+
+/* Dark theme support */
+[data-theme="dark"] .savings-tips {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .savings-tips h3 {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .tip-item {
+  background-color: var(--bg-color);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .tip-content h4 {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .tip-content p {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .tip-category {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}

@@ -133,41 +133,39 @@
 }
 
 /* Dark theme support */
-@media (prefers-color-scheme: dark) {
-  .collaboration-invite-modal {
-    background: #2d3748;
-    color: #e2e8f0;
-  }
+[data-theme="dark"] .collaboration-invite-modal {
+  background: var(--bg-secondary);
+  color: var(--text-color);
+}
 
-  .collaboration-invite-header h3 {
-    color: #e2e8f0;
-  }
+[data-theme="dark"] .collaboration-invite-header h3 {
+  color: var(--text-color);
+}
 
-  .form-group label {
-    color: #e2e8f0;
-  }
+[data-theme="dark"] .form-group label {
+  color: var(--text-color);
+}
 
-  .form-group input,
-  .form-group textarea {
-    background-color: #4a5568;
-    border-color: #718096;
-    color: #e2e8f0;
-  }
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+  background-color: var(--button-bg);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
 
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: #63b3ed;
-  }
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus {
+  border-color: var(--accent-color);
+}
 
-  .cancel-button {
-    background-color: #4a5568;
-    color: #e2e8f0;
-    border-color: #718096;
-  }
+[data-theme="dark"] .cancel-button {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
 
-  .cancel-button:hover {
-    background-color: #718096;
-  }
+[data-theme="dark"] .cancel-button:hover {
+  background-color: var(--button-hover-bg);
 }
 
 /* Mobile responsiveness */
