@@ -55,6 +55,33 @@
   border: 1px solid #f5c6cb;
 }
 
+/* Dark theme support */
+[data-theme="dark"] .original-amount {
+  color: var(--text-color);
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .conversion-arrow {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .converted-amount {
+  color: var(--accent-color);
+  background: var(--accent-light);
+  border-color: var(--accent-color);
+}
+
+[data-theme="dark"] .loading {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .error {
+  color: var(--error-color);
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--error-color);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .currency-conversion {
@@ -62,12 +89,12 @@
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .converted-section {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .converted-amount {
     min-width: auto;
     flex-grow: 1;

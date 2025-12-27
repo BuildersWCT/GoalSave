@@ -30,3 +30,24 @@
   color: #6c757d;
   cursor: not-allowed;
 }
+
+/* Dark theme support */
+[data-theme="dark"] .currency-selector {
+  background: var(--button-bg);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .currency-selector:hover {
+  border-color: var(--accent-color);
+}
+
+[data-theme="dark"] .currency-selector:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+[data-theme="dark"] .currency-selector:disabled {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
