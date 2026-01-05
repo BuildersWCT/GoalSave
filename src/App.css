@@ -69,7 +69,8 @@ main {
 }
 
 .goal-form input:focus {
-  outline: none;
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
   border-color: var(--accent-color);
 }
 
@@ -91,6 +92,11 @@ main {
 .goal-form button:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+
+.goal-form button:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 .goal-item {
