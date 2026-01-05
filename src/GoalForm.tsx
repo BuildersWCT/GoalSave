@@ -84,33 +84,45 @@ export function GoalForm({ onGoalCreated }: GoalFormProps) {
     <div className="goal-form">
       <h3>{t('createGoal')}</h3>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="goal-name">{t('goalName')}</label>
         <input
+          id="goal-name"
           type="text"
           placeholder={t('goalNamePlaceholder')}
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          aria-describedby="goal-name-help"
         />
+        <label htmlFor="token-address">{t('tokenAddress')}</label>
         <input
+          id="token-address"
           type="text"
           placeholder={t('tokenAddressPlaceholder')}
           value={token}
           onChange={(e) => setToken(e.target.value)}
+          aria-describedby="token-address-help"
         />
+        <label htmlFor="target-amount">{t('targetAmount')}</label>
         <input
+          id="target-amount"
           type="number"
           placeholder={t('targetAmountPlaceholder')}
           value={target}
           onChange={(e) => setTarget(e.target.value)}
           required
+          aria-describedby="target-amount-help"
         />
+        <label htmlFor="lock-until">{t('lockUntil')}</label>
         <input
+          id="lock-until"
           type="number"
           placeholder={t('lockUntilPlaceholder')}
           value={lockUntil}
           onChange={(e) => setLockUntil(e.target.value)}
+          aria-describedby="lock-until-help"
         />
-        <button type="submit" disabled={isPending || isConfirming}>
+        <button type="submit" disabled={isPending || isConfirming} aria-disabled={isPending || isConfirming}>
           {isPending ? t('creating') : isConfirming ? t('waiting') : t('createButton')}
         </button>
       </form>
