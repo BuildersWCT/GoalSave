@@ -90,7 +90,8 @@ main {
 }
 
 .goal-form button:disabled {
-  background: #ccc;
+  background: #666;
+  color: #aaa;
   cursor: not-allowed;
 }
 
