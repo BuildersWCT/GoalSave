@@ -6,6 +6,7 @@ import { CurrencyDisplay } from './components/CurrencyDisplay'
 import { GoalCollaboration } from './components/GoalCollaboration'
 import { SavingsTips } from './components/SavingsTips'
 import { ProgressBar } from './components/ProgressBar'
+import { EmailReminderSettings } from './components/EmailReminderSettings'
 import { useMilestoneDetection } from './hooks/useMilestoneDetection'
 import { useDeadlineReminders } from './hooks/useDeadlineReminders'
 import { useNotifications } from './contexts/NotificationContext'
@@ -126,6 +127,13 @@ export function GoalList() {
                 goalId={goal.id.toString()}
                 goalName={goal.name}
               />
+
+              {!goal.closed && (
+                <EmailReminderSettings
+                  goalId={goal.id.toString()}
+                  goalName={goal.name}
+                />
+              )}
             </div>
           )
         })
