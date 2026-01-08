@@ -89,7 +89,9 @@ function App() {
                     <NotificationBell />
                     <LanguageSwitcher />
                     <ThemeToggle />
-                    <appkit-button />
+                    <div aria-label={t('connectWallet')}>
+                      <appkit-button />
+                    </div>
                   </div>
                 </header>
 

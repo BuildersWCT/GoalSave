@@ -19,12 +19,19 @@ export function NotificationBell() {
     setIsOpen(!isOpen)
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape' && isOpen) {
+      setIsOpen(false)
+    }
+  }
+
   return (
     <div className="notification-bell-container">
       <button
         className={`notification-bell ${unreadCount > 0 ? 'has-unread' : ''}`}
         onClick={toggleDropdown}
         aria-label={t('notifications')}
+        aria-expanded={isOpen}
         title={t('notifications')}
       >
         <svg
@@ -48,7 +55,7 @@ export function NotificationBell() {
       </button>
 
       {isOpen && (
-        <div className="notification-dropdown">
+        <div className="notification-dropdown" onKeyDown={handleKeyDown}>
           <div className="notification-header">
             <h4>{t('notifications')}</h4>
             {unreadCount > 0 && (
