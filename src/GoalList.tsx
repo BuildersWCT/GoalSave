@@ -7,6 +7,7 @@ import { GoalCollaboration } from './components/GoalCollaboration'
 import { SavingsTips } from './components/SavingsTips'
 import { ProgressBar } from './components/ProgressBar'
 import { useMilestoneDetection } from './hooks/useMilestoneDetection'
+import { useDeadlineReminders } from './hooks/useDeadlineReminders'
 import { useNotifications } from './contexts/NotificationContext'
 import { errorLogger } from './utils/errorLogger'
 import { calculateDaysUntilDeadline, formatDeadlineCountdown, isDeadlineUrgent } from './utils/deadlineUtils'
@@ -53,6 +54,9 @@ export function GoalList() {
 
   // Initialize milestone detection
   useMilestoneDetection({ goals, isLoading })
+
+  // Initialize deadline reminders
+  useDeadlineReminders({ goals, isLoading })
 
   if (isLoading) return <div className="goal-list"><p>{t('loading')}</p></div>
 
