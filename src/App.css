@@ -126,6 +126,25 @@ main {
   opacity: 0.8;
 }
 
+.deadline-countdown {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.deadline-countdown.urgent {
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  color: #856404;
+}
+
+[data-theme="dark"] .deadline-countdown.urgent {
+  background-color: #2d1b0f;
+  border: 1px solid #5c3d1a;
+  color: #d4a574;
+}
+
 .goal-details {
   margin-top: 0.5rem;
 }

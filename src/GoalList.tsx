@@ -9,6 +9,7 @@ import { ProgressBar } from './components/ProgressBar'
 import { useMilestoneDetection } from './hooks/useMilestoneDetection'
 import { useNotifications } from './contexts/NotificationContext'
 import { errorLogger } from './utils/errorLogger'
+import { calculateDaysUntilDeadline, formatDeadlineCountdown, isDeadlineUrgent } from './utils/deadlineUtils'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -82,6 +83,11 @@ export function GoalList() {
           // Calculate progress percentage (avoid division by zero)
           const progressPercentage = targetAmount > 0 ? Math.min((balanceAmount / targetAmount) * 100, 100) : 0
 
+          // Calculate deadline information
+          const daysUntilDeadline = calculateDaysUntilDeadline(goal.lockUntil)
+          const deadlineText = formatDeadlineCountdown(daysUntilDeadline)
+          const isUrgent = isDeadlineUrgent(goal.lockUntil)
+
           return (
             <div key={goal.id.toString()} className="goal-item">
               <h4>{goal.name}</h4>
@@ -105,6 +111,11 @@ export function GoalList() {
                 <ProgressBar percentage={progressPercentage} />
                 <p>{t('token')}: {tokenCurrency}</p>
                 <p>{t('status')}: {goal.closed ? 'Closed' : 'Active'}</p>
+                {!goal.closed && (
+                  <div className={`deadline-countdown ${isUrgent ? 'urgent' : ''}`}>
+                    <p>{t('deadline')}: {deadlineText}</p>
+                  </div>
+                )}
               </div>
 
               <GoalCollaboration
