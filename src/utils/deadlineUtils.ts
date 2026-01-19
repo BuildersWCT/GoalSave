@@ -12,7 +12,7 @@ export function calculateDaysUntilDeadline(deadlineTimestamp: bigint): number {
   const deadline = Number(deadlineTimestamp);
   const diffInSeconds = deadline - now;
   const diffInDays = diffInSeconds / (60 * 60 * 24); // Convert to days
-  return Math.ceil(diffInDays); // Round up to next day
+  return Math.floor(diffInDays); // Round down to full days
 }
 
 /**
