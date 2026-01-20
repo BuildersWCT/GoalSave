@@ -2,16 +2,21 @@
  * Utility functions for deadline calculations and reminders
  */
 
+const SECONDS_PER_DAY = 60 * 60 * 24;
+
 /**
  * Calculate the number of days until a deadline
  * @param deadlineTimestamp - The deadline timestamp in seconds (bigint)
  * @returns Number of days until deadline (can be negative if past)
+ *
+ * Uses Math.floor to ensure that deadlines within the current day are considered 0 days away,
+ * providing accurate "due today" messaging.
  */
 export function calculateDaysUntilDeadline(deadlineTimestamp: bigint): number {
   const now = Date.now() / 1000; // Current time in seconds
   const deadline = Number(deadlineTimestamp);
   const diffInSeconds = deadline - now;
-  const diffInDays = diffInSeconds / (60 * 60 * 24); // Convert to days
+  const diffInDays = diffInSeconds / SECONDS_PER_DAY; // Convert to days
   return Math.floor(diffInDays); // Round down to full days
 }
 
