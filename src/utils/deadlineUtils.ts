@@ -1,0 +1,59 @@
+/**
+ * Utility functions for deadline calculations and reminders
+ */
+
+const SECONDS_PER_DAY = 60 * 60 * 24;
+
+/**
+ * Calculate the number of days until a deadline
+ * @param deadlineTimestamp - The deadline timestamp in seconds (bigint)
+ * @returns Number of days until deadline (can be negative if past)
+ *
+ * Uses Math.floor to ensure that deadlines within the current day are considered 0 days away,
+ * providing accurate "due today" messaging. For example, if a deadline is 23 hours from now,
+ * it returns 0 (due today), not 1 (due tomorrow).
+ */
+export function calculateDaysUntilDeadline(deadlineTimestamp: bigint): number {
+  const now = Date.now() / 1000; // Current time in seconds
+  const deadline = Number(deadlineTimestamp);
+  const diffInSeconds = deadline - now;
+  const diffInDays = diffInSeconds / SECONDS_PER_DAY; // Convert to days
+  return Math.floor(diffInDays); // Round down to full days
+}
+
+/**
+ * Format days until deadline for display
+ * @param days - Number of days
+ * @returns Formatted string
+ */
+export function formatDeadlineCountdown(days: number): string {
+  if (days < 0) {
+    return `Overdue by ${Math.abs(days)} day${Math.abs(days) !== 1 ? 's' : ''}`;
+  } else if (days === 0) {
+    return 'Due today';
+  } else if (days === 1) {
+    return 'Due tomorrow';
+  } else {
+    return `${days} days remaining`;
+  }
+}
+
+/**
+ * Check if a deadline is approaching (within 7 days)
+ * @param deadlineTimestamp - The deadline timestamp
+ * @returns True if deadline is within 7 days
+ */
+export function isDeadlineApproaching(deadlineTimestamp: bigint): boolean {
+  const days = calculateDaysUntilDeadline(deadlineTimestamp);
+  return days >= 0 && days <= 7;
+}
+
+/**
+ * Check if a deadline is urgent (within 3 days)
+ * @param deadlineTimestamp - The deadline timestamp
+ * @returns True if deadline is within 3 days
+ */
+export function isDeadlineUrgent(deadlineTimestamp: bigint): boolean {
+  const days = calculateDaysUntilDeadline(deadlineTimestamp);
+  return days >= 0 && days <= 3;
+}

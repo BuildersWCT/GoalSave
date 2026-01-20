@@ -106,6 +106,9 @@ export function GoalList({ onEditGoal }: GoalListProps) {
   // Filter goals based on showArchived state
   const filteredGoals = goals?.filter(goal => showArchived ? goal.archived : !goal.archived) || []
 
+  // Initialize deadline reminders
+  useDeadlineReminders({ goals, isLoading })
+
   if (isLoading) return <div className="goal-list"><p>{t('loading')}</p></div>
 
   const activeGoals = goals?.filter(goal => !goal.archived) || []
