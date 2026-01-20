@@ -55,7 +55,7 @@ export function useDeadlineReminders({ goals, isLoading }: UseDeadlineRemindersP
               id: `deadline-overdue-${goalId}-${now}`,
               type: 'reminder',
               title: 'Goal Deadline Passed',
-              message: `Your goal "${goal.name}" deadline has passed. Consider extending it or completing your contributions.`,
+              message: `Your goal "${goal.name}" is overdue. Consider extending it or completing your contributions.`,
               timestamp: now,
               goalId,
             })
