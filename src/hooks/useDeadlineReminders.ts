@@ -14,6 +14,11 @@ interface UseDeadlineRemindersProps {
   isLoading: boolean
 }
 
+/**
+ * Hook to send deadline reminders for goals.
+ * Sends notifications for urgent deadlines (within 3 days including today) and overdue goals.
+ * Notifications are throttled to once per 24 hours per goal.
+ */
 export function useDeadlineReminders({ goals, isLoading }: UseDeadlineRemindersProps) {
   const { addNotification } = useNotifications()
   const lastCheckRef = useRef<Record<string, number>>({})
