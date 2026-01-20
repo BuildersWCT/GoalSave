@@ -24,6 +24,12 @@ describe('deadlineUtils', () => {
       const result = calculateDaysUntilDeadline(todayDeadline)
       expect(result).toBe(0) // Rounds down to full days
     })
+
+    it('should return 1 for deadline exactly 24 hours from now', () => {
+      const tomorrowDeadline = BigInt(Math.floor(now + oneDay))
+      const result = calculateDaysUntilDeadline(tomorrowDeadline)
+      expect(result).toBe(1)
+    })
   })
 
   describe('formatDeadlineCountdown', () => {
