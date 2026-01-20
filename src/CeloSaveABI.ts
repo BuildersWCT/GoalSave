@@ -58,6 +58,11 @@ export const CeloSaveABI = [
         "internalType": "bool",
         "name": "closed",
         "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "archived",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -127,6 +132,11 @@ export const CeloSaveABI = [
             "internalType": "bool",
             "name": "closed",
             "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "archived",
+            "type": "bool"
           }
         ],
         "internalType": "struct CeloSave.Goal[]",
@@ -146,6 +156,32 @@ export const CeloSaveABI = [
       }
     ],
     "name": "closeGoal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "goalId",
+        "type": "uint256"
+      }
+    ],
+    "name": "archiveGoal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "goalId",
+        "type": "uint256"
+      }
+    ],
+    "name": "restoreGoal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -306,6 +342,44 @@ export const CeloSaveABI = [
       }
     ],
     "name": "GoalClosed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "goalId",
+        "type": "uint256"
+      }
+    ],
+    "name": "GoalArchived",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "goalId",
+        "type": "uint256"
+      }
+    ],
+    "name": "GoalRestored",
     "type": "event"
   },
   {
