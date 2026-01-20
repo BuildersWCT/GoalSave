@@ -40,7 +40,7 @@ export function useDeadlineReminders({ goals, isLoading }: UseDeadlineRemindersP
               id: `deadline-urgent-${goalId}-${now}`,
               type: 'reminder',
               title: 'Goal Deadline Approaching!',
-              message: `Your goal "${goal.name}" is due in ${daysUntilDeadline} day${daysUntilDeadline !== 1 ? 's' : ''}. Don't forget to contribute!`,
+              message: `Your goal "${goal.name}" ${daysUntilDeadline === 0 ? 'is due today' : `is due in ${daysUntilDeadline} day${daysUntilDeadline !== 1 ? 's' : ''}`}. Don't forget to contribute!`,
               timestamp: now,
               goalId,
             })
