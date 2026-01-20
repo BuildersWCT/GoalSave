@@ -33,7 +33,7 @@ export function useDeadlineReminders({ goals, isLoading }: UseDeadlineRemindersP
         const lastCheck = lastCheckRef.current[goalId] || 0
 
         // Only send notification if it's been more than 24 hours since last check
-        // and deadline is urgent or overdue
+        // and deadline is urgent (within 3 days including today) or overdue
         if (now - lastCheck > 24 * 60 * 60 * 1000) {
           if (isUrgent) {
             addNotification({
