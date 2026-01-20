@@ -1,6 +1,7 @@
 import { calculateDaysUntilDeadline, formatDeadlineCountdown, isDeadlineApproaching, isDeadlineUrgent } from '../deadlineUtils'
 
 describe('deadlineUtils', () => {
+  // Test constants for time calculations
   const now = Date.now() / 1000 // Current time in seconds
   const oneDay = 24 * 60 * 60 // One day in seconds
   const threeDays = 3 * oneDay
