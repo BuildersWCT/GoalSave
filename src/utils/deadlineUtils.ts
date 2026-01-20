@@ -10,7 +10,8 @@ const SECONDS_PER_DAY = 60 * 60 * 24;
  * @returns Number of days until deadline (can be negative if past)
  *
  * Uses Math.floor to ensure that deadlines within the current day are considered 0 days away,
- * providing accurate "due today" messaging.
+ * providing accurate "due today" messaging. For example, if a deadline is 23 hours from now,
+ * it returns 0 (due today), not 1 (due tomorrow).
  */
 export function calculateDaysUntilDeadline(deadlineTimestamp: bigint): number {
   const now = Date.now() / 1000; // Current time in seconds
