@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 import { ExportControls } from './components/ExportControls'
+import { SavingsTips } from './components/SavingsTips'
+import { useNotifications } from '../contexts/NotificationContext'
+import { errorLogger } from '../utils/errorLogger'
+import { useDeadlineReminders } from '../hooks/useDeadlineReminders'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -31,15 +35,17 @@ export function GoalList({ onEditGoal }: GoalListProps) {
   const { t } = useTranslation()
   const [showArchived, setShowArchived] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
-  
-  const { data: goals, isLoading } = useReadContract({
+  const [retryCount, setRetryCount] = useState(0)
+  const { addNotification } = useNotifications()
+
+  const { data: goals, isLoading, error, refetch } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: CeloSaveABI,
     functionName: 'getMyGoals',
   }) as { data: Goal[] | undefined; isLoading: boolean; error: Error | null; refetch: () => void }
 
   // Handle read contract errors
-  React.useEffect(() => {
+  useEffect(() => {
     if (error) {
       errorLogger.logError(error, 'GoalList.readContract')
       addNotification({
