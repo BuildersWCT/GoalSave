@@ -1,17 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNotifications } from '../contexts/NotificationContext'
-import { isDeadlineApproaching, isDeadlineUrgent, calculateDaysUntilDeadline, formatDeadlineCountdown } from '../utils/deadlineUtils'
+import { calculateDaysUntilDeadline, isDeadlineUrgent } from '../utils/deadlineUtils'
 
 interface Goal {
   id: bigint
   name: string
-  token: string
-  target: bigint
-  balance: bigint
-  createdAt: bigint
   lockUntil: bigint
   closed: boolean
-  archived: boolean
 }
 
 interface UseDeadlineRemindersProps {
@@ -20,46 +15,62 @@ interface UseDeadlineRemindersProps {
 }
 
 /**
- * Hook to manage deadline reminders for goals
- * Checks for approaching and urgent deadlines and sends notifications
+ * Hook to send deadline reminders for goals.
+ * Sends notifications for urgent deadlines (within 3 days including today) and overdue goals.
+ * Notifications are throttled to once per 24 hours per goal.
  */
 export function useDeadlineReminders({ goals, isLoading }: UseDeadlineRemindersProps) {
   const { addNotification } = useNotifications()
+  const lastCheckRef = useRef<Record<string, number>>({})
 
   useEffect(() => {
     if (isLoading || !goals) return
 
-    const now = Date.now()
-    const lastCheckKey = 'goalsave-last-deadline-check'
-    const lastCheck = localStorage.getItem(lastCheckKey)
-    const lastCheckTime = lastCheck ? parseInt(lastCheck, 10) : 0
+    const checkDeadlines = () => {
+      const now = Date.now()
 
-    // Only check once per day to avoid spam
-    const oneDay = 24 * 60 * 60 * 1000
-    if (now - lastCheckTime < oneDay) return
+      goals.forEach((goal) => {
+        if (goal.closed) return
 
-    goals.forEach(goal => {
-      if (goal.closed || goal.archived) return
+        const goalId = goal.id.toString()
+        const daysUntilDeadline = calculateDaysUntilDeadline(goal.lockUntil)
+        const isUrgent = isDeadlineUrgent(goal.lockUntil)
+        const lastCheck = lastCheckRef.current[goalId] || 0
 
-      const days = calculateDaysUntilDeadline(goal.lockUntil)
-      const message = formatDeadlineCountdown(days)
+        // Only send notification if it's been more than 24 hours since last check
+        // and deadline is urgent (within 3 days including today) or overdue
+        if (now - lastCheck > 24 * 60 * 60 * 1000) {
+          if (isUrgent) {
+            addNotification({
+              id: `deadline-urgent-${goalId}-${now}`,
+              type: 'reminder',
+              title: 'Goal Deadline Approaching!',
+              message: `Your goal "${goal.name}" ${daysUntilDeadline === 0 ? 'is due today' : `is due in ${daysUntilDeadline} day${daysUntilDeadline !== 1 ? 's' : ''}`}. Don't forget to contribute!`,
+              timestamp: now,
+              goalId,
+            })
+            lastCheckRef.current[goalId] = now
+          } else if (daysUntilDeadline < 0) {
+            addNotification({
+              id: `deadline-overdue-${goalId}-${now}`,
+              type: 'reminder',
+              title: 'Goal Deadline Passed',
+              message: `Your goal "${goal.name}" is overdue. Consider extending it or completing your contributions.`,
+              timestamp: now,
+              goalId,
+            })
+            lastCheckRef.current[goalId] = now
+          }
+        }
+      })
+    }
 
-      if (isDeadlineUrgent(goal.lockUntil)) {
-        addNotification({
-          type: 'warning',
-          title: `Urgent Deadline: ${goal.name}`,
-          message: `Goal deadline is approaching: ${message}`
-        })
-      } else if (isDeadlineApproaching(goal.lockUntil)) {
-        addNotification({
-          type: 'info',
-          title: `Deadline Reminder: ${goal.name}`,
-          message: `Goal deadline is approaching: ${message}`
-        })
-      }
-    })
+    // Check immediately when component mounts or goals change
+    checkDeadlines()
 
-    // Update last check time
-    localStorage.setItem(lastCheckKey, now.toString())
+    // Set up interval to check every hour
+    const interval = setInterval(checkDeadlines, 60 * 60 * 1000)
+
+    return () => clearInterval(interval)
   }, [goals, isLoading, addNotification])
 }
