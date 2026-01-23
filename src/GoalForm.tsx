@@ -4,13 +4,15 @@ import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { CeloSaveABI } from './CeloSaveABI'
 import { ValidationIcon } from './components/ValidationIcon'
 import { ValidationMessage } from './components/ValidationMessage'
-import { 
-  validateField, 
-  validateForm, 
-  createInitialFormValidation, 
+import {
+  validateField,
+  validateForm,
+  createInitialFormValidation,
   isFormValid,
   FormValidationState
 } from './utils/validation'
+import { useNotifications } from '../contexts/NotificationContext'
+import { errorLogger } from '../utils/errorLogger'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -28,6 +30,7 @@ interface GoalFormProps {
 
 export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing = false }: GoalFormProps) {
   const { t } = useTranslation()
+  const { addNotification } = useNotifications()
   const [name, setName] = useState(initialGoal?.name || '')
   const [token, setToken] = useState(initialGoal?.token || '0x0000000000000000000000000000000000000000') // CELO
   const [target, setTarget] = useState(initialGoal?.target || '')
