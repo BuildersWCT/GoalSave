@@ -13,6 +13,7 @@ import {
 } from './utils/validation'
 import { useNotifications } from '../contexts/NotificationContext'
 import { errorLogger } from '../utils/errorLogger'
+import { format } from 'date-fns'
 
 const CONTRACT_ADDRESS = '0xF9Ba5E30218B24C521500Fe880eE8eaAd2897055' as `0x${string}`
 
@@ -35,6 +36,15 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
   const [token, setToken] = useState(initialGoal?.token || '0x0000000000000000000000000000000000000000') // CELO
   const [target, setTarget] = useState(initialGoal?.target || '')
   const [lockUntil, setLockUntil] = useState(initialGoal?.lockUntil || '')
+  const [lockUntilDateTime, setLockUntilDateTime] = useState(() => {
+    if (initialGoal?.lockUntil) {
+      const timestamp = parseInt(initialGoal.lockUntil)
+      if (!isNaN(timestamp) && timestamp > 0) {
+        return format(new Date(timestamp * 1000), "yyyy-MM-dd'T'HH:mm")
+      }
+    }
+    return ''
+  })
   const [validationState, setValidationState] = useState<FormValidationState>(createInitialFormValidation())
   const [isSubmitAttempted, setIsSubmitAttempted] = useState(false)
 
@@ -88,6 +98,23 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
     }
   }, [validationState, validateFieldValue])
 
+  // Handle datetime change for lockUntil
+  const handleLockUntilDateTimeChange = useCallback((value: string) => {
+    setLockUntilDateTime(value)
+    if (value) {
+      const date = new Date(value)
+      const timestamp = Math.floor(date.getTime() / 1000).toString()
+      setLockUntil(timestamp)
+      if (validationState.lockUntil.touched) {
+        setTimeout(() => {
+          validateFieldValue('lockUntil', timestamp)
+        }, 300)
+      }
+    } else {
+      setLockUntil('')
+    }
+  }, [validationState.lockUntil.touched, validateFieldValue])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitAttempted(true)
@@ -136,6 +163,7 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
       setName('')
       setTarget('')
       setLockUntil('')
+      setLockUntilDateTime('')
       setValidationState(createInitialFormValidation())
       setIsSubmitAttempted(false)
     }
@@ -302,11 +330,15 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
           <div className="form-input-wrapper">
             <input
               id="lockUntil-input"
-              type="number"
+              type="datetime-local"
               placeholder={t('lockUntilPlaceholder')}
-              value={lockUntil}
-              onChange={(e) => handleFieldChange('lockUntil', e.target.value, setLockUntil)}
-              onBlur={(e) => handleFieldBlur('lockUntil', e.target.value)}
+              value={lockUntilDateTime}
+              onChange={(e) => handleLockUntilDateTimeChange(e.target.value)}
+              onBlur={() => {
+                if (validationState.lockUntil.touched) {
+                  validateFieldValue('lockUntil', lockUntil)
+                }
+              }}
               aria-describedby={getFieldState('lockUntil').errors.length > 0 ? 'lockUntil-error' : 'lockUntil-help'}
               aria-invalid={getFieldState('lockUntil').hasErrors}
               className={`
@@ -314,7 +346,6 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
                 ${getFieldState('lockUntil').hasWarnings ? 'form-field--has-warning' : ''}
                 ${getFieldState('lockUntil').isValid && getFieldState('lockUntil').touched ? 'form-field--is-valid' : ''}
               `}
-              min="0"
             />
             <ValidationIcon
               isValid={getFieldState('lockUntil').isValid}
@@ -324,9 +355,9 @@ export function GoalForm({ onGoalCreated, onGoalUpdated, initialGoal, isEditing 
             />
           </div>
           <div id="lockUntil-help" className="field-help" style={{ fontSize: '0.875rem', color: 'var(--text-color)', opacity: 0.7, marginTop: '0.25rem' }}>
-            Unix timestamp (optional)
+            Optional lock date and time
           </div>
-          <ValidationMessage 
+          <ValidationMessage
             errors={getFieldState('lockUntil').errors}
             className="field-validation"
           />
